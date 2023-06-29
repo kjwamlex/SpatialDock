@@ -14,6 +14,7 @@
 		510C095A2A4CFD4D001B26A0 /* VisionDockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510C09592A4CFD4D001B26A0 /* VisionDockTests.swift */; };
 		510C09642A4CFD4D001B26A0 /* VisionDockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510C09632A4CFD4D001B26A0 /* VisionDockUITests.swift */; };
 		510C09662A4CFD4D001B26A0 /* VisionDockUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510C09652A4CFD4D001B26A0 /* VisionDockUITestsLaunchTests.swift */; };
+		51F2103B2A4E09FE0046D66B /* TimeManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F2103A2A4E09FE0046D66B /* TimeManagement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		510C095F2A4CFD4D001B26A0 /* VisionDockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VisionDockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		510C09632A4CFD4D001B26A0 /* VisionDockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionDockUITests.swift; sourceTree = "<group>"; };
 		510C09652A4CFD4D001B26A0 /* VisionDockUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionDockUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		51F2103A2A4E09FE0046D66B /* TimeManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManagement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			children = (
 				510C09482A4CFD4B001B26A0 /* VisionDockApp.swift */,
 				510C094A2A4CFD4B001B26A0 /* ContentView.swift */,
+				51F2103A2A4E09FE0046D66B /* TimeManagement.swift */,
 				510C094C2A4CFD4D001B26A0 /* Assets.xcassets */,
 				510C094E2A4CFD4D001B26A0 /* Preview Content */,
 			);
@@ -257,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51F2103B2A4E09FE0046D66B /* TimeManagement.swift in Sources */,
 				510C094B2A4CFD4B001B26A0 /* ContentView.swift in Sources */,
 				510C09492A4CFD4B001B26A0 /* VisionDockApp.swift in Sources */,
 			);
