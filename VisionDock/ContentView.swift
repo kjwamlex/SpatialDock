@@ -17,6 +17,9 @@ struct ContentView: View {
     @State var currentMinute = "--"
     @State var currentAMorPM = ""
     @State var currentDate = ""
+    @State private var isPresented = false
+    @Environment(\.openWindow) private var openWindow
+    @EnvironmentObject var openedSettings: observableBoolean
     
     var body: some View {
         VStack {
@@ -67,6 +70,12 @@ struct ContentView: View {
                         Image(systemName: "battery.100")
                             .symbolEffect(.bounce, value: 50.0)
                             .font(.system(size: 40))
+                        Button("Edit") {
+                            if !openedSettings.boolean {
+                                openWindow(id: "settings")
+                                openedSettings.boolean = true
+                            }
+                        }
                     }.frame(width: 500)
                         .onAppear() {
                             UIDevice.current.isBatteryMonitoringEnabled = true
@@ -93,3 +102,19 @@ struct ContentView: View {
     ContentView()
 }
 
+
+struct FullScreenModalView: View {
+    @Environment(\.presentationMode) var presentationMode
+
+    var body: some View {
+        VStack {
+            Text("This is a modal view")
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.red)
+        .edgesIgnoringSafeArea(.all)
+        .onTapGesture {
+            presentationMode.wrappedValue.dismiss()
+        }
+    }
+}
