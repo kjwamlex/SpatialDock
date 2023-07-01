@@ -24,7 +24,7 @@ class TimeManagement: NSObject {
     func getAMorPM() -> String {
         let startOfDay = Calendar.current.startOfDay(for: Date()).timeIntervalSince1970
         let currentTime = Date().timeIntervalSince1970
-        var hoursSinceStartOfDay = floor((currentTime - startOfDay) / 3600)
+        let hoursSinceStartOfDay = floor((currentTime - startOfDay) / 3600)
         
         return hoursSinceStartOfDay >= 12 ? "PM" : "AM"
     }

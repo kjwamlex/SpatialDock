@@ -20,6 +20,7 @@ struct VisionDockApp: App {
         WindowGroup("Settings", id: "settings") {
             Settings()
                 .environmentObject(openedSettings)
+                
         }
     }
 }

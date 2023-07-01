@@ -19,6 +19,7 @@ struct ContentView: View {
     @State var currentDate = ""
     @State private var isPresented = false
     @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismissWindow) private var dismissWindow
     @EnvironmentObject var openedSettings: observableBoolean
     
     var body: some View {
@@ -71,10 +72,10 @@ struct ContentView: View {
                             .symbolEffect(.bounce, value: 50.0)
                             .font(.system(size: 40))
                         Button("Edit") {
-                            if !openedSettings.boolean {
-                                openWindow(id: "settings")
-                                openedSettings.boolean = true
+                            withTransaction(\.dismissBehavior, .destructive) {
+                                dismissWindow(id: "settings")
                             }
+                            openWindow(id: "settings")
                         }
                     }.frame(width: 500)
                         .onAppear() {
