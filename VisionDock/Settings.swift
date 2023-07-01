@@ -7,13 +7,47 @@
 
 import SwiftUI
 
+enum SettingsNavigation {
+    case about
+}
+
 struct Settings: View {
     @EnvironmentObject var openedSettings: observableBoolean
     @Environment(\.dismiss) var dismiss
+    @State var selectedNavigation: Set<SettingsNavigation>?
+    
     var body: some View {
-        Button("Close Settings") {
-            openedSettings.boolean = false
-            dismiss()
+        
+        NavigationSplitView {
+//            Button("Close Settings") {
+//                openedSettings.boolean = false
+//                dismiss()
+//            }
+//            
+            List(selection: $selectedNavigation) {
+                NavigationLink(destination: SettingsAbout()) {
+                    Label("About infiniteX3I", systemImage: "info.circle")
+                }
+                .tag(SettingsNavigation.about)
+                .onAppear() {
+                    selectedNavigation = [.about]
+                }
+            }
+            .navigationTitle("Settings")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        openedSettings.boolean = false
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                    
+                }
+            }
+            
+        } detail: {
+            SettingsAbout()
         }
     }
 }
