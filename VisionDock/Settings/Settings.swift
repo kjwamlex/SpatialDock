@@ -34,23 +34,23 @@ struct Settings: View {
                     Label("About infiniteX3I", systemImage: "info.circle")
                 }
                 .tag(SettingsNavigation.about)
-                NavigationLink(destination: SettingsAbout()) {
-                    Label("Subscription", systemImage: "bubbles.and.sparkles.fill")
+                NavigationLink(destination: SettingsFeatures()) {
+                    Label("More Features", systemImage: "bubbles.and.sparkles.fill")
                 }
                 .tag(SettingsNavigation.MoreFeatures)
-                NavigationLink(destination: SettingsAbout()) {
+                NavigationLink(destination: SettingsApps()) {
                     Label("Apps", systemImage: "dock.rectangle")
                 }
                 .tag(SettingsNavigation.apps)
-                NavigationLink(destination: SettingsAbout()) {
+                NavigationLink(destination: SettingsShortcuts()) {
                     Label("Shortcuts", systemImage: "arrow.up.left")
                 }
                 .tag(SettingsNavigation.shortcuts)
-                NavigationLink(destination: SettingsAbout()) {
+                NavigationLink(destination: SettingsMessages()) {
                     Label("Messages", systemImage: "bubble.left.fill")
                 }
                 .tag(SettingsNavigation.messages)
-                NavigationLink(destination: SettingsAbout()) {
+                NavigationLink(destination: SettingsReset()) {
                     Label("Reset", systemImage: "arrow.counterclockwise")
                 }
                 .tag(SettingsNavigation.reset)
