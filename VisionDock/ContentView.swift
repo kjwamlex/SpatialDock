@@ -27,29 +27,6 @@ struct ContentView: View {
         VStack {
             VStack {
                 DemoDragRelocateView()
-                
-//                HStack {
-//                    ForEach(systemApps, id: \.self) { app in
-//                        VStack {
-//                            Button {
-//                                if let url = URL(string: appsCorrespondingURL[app] ?? "") {
-//                                    if UIApplication.shared.canOpenURL(url) {
-//                                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//                                    } else {
-//                                        print("cant")
-//                                    }
-//                                }
-//                            } label: {
-//                                Image(app)
-//                                    .resizable()
-//                                    .aspectRatio(contentMode: .fit)
-//                            }.padding(5)
-//                            .buttonStyle(.borderless)
-//                            .buttonBorderShape(.circle)
-//                            //Text(app)
-//                        }.frame(height:130)
-//                    }
-                //}
                 VStack {
                     HStack {
                         Text("\(currentHour):\(currentMinute) \(currentAMorPM)")
@@ -87,7 +64,7 @@ struct ContentView: View {
                 }
                 .padding(5)
             }
-            .padding(10)
+            .padding(20)
             Spacer()
             
         }
