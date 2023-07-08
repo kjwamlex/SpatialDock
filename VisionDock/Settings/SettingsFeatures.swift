@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct SettingsFeatures: View {
+    
+    // Extra Subscription Features:
+    // More than 5 shortcuts
+    // More than 5 apps on the dock
+    // Now Playing Widget
+    
     @State private var optionExample = true
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     var body: some View {

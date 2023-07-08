@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct SettingsMessages: View {
+    
+    // Two ways:
+    // 1. Shortcuts
+    // 2. URL Scheme. Most likely to use URL Scheme for simplicity.
+    
+    
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     var body: some View {
         VStack {

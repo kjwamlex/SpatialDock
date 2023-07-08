@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsApps: View {
     // Apple Apps
     //https://medium.com/@contact.jmeyers/complete-list-of-ios-url-schemes-for-apple-apps-and-services-always-updated-800c64f450f
-    
+
     // Third Party Apps
     // https://medium.com/@contact.jmeyers/complete-list-of-ios-url-schemes-for-third-party-apps-always-updated-5663ef15bdff
     
