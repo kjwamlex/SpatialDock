@@ -38,7 +38,7 @@ class Model: ObservableObject {
 struct DemoDragRelocateView: View {
     @StateObject private var model = Model()
 
-    @State var editButton: Bool = false
+    @Binding var editButton: Bool
     @State private var dragging: GridData?
     @State var appsCorrespondingURL:[String : String] = ["Safari" : "x-web-search://", "Settings": UIApplication.openSettingsURLString, "Files" : "shareddocuments://", "Photos" : "photos-navigation://"]
 
@@ -114,6 +114,7 @@ struct DockItemView: View {
         ZStack {
             Spacer()
             Button {
+                editModeInBound = false
                 if let url = URL(string: appURL) {
                     if UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)

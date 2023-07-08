@@ -17,6 +17,7 @@ struct ContentView: View {
     @State var currentMinute = "--"
     @State var currentAMorPM = ""
     @State var currentDate = ""
+    @State var editDock = false
     @State private var isPresented = false
     @StateObject private var model = Model()
     @Environment(\.openWindow) private var openWindow
@@ -26,7 +27,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             VStack {
-                DemoDragRelocateView()
+                DemoDragRelocateView(editButton: $editDock)
                 VStack {
                     HStack {
                         Text("\(currentHour):\(currentMinute) \(currentAMorPM)")
