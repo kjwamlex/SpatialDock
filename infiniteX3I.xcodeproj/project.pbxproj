@@ -115,12 +115,12 @@
 			isa = PBXGroup;
 			children = (
 				510C09482A4CFD4B001B26A0 /* VisionDockApp.swift */,
+				515FA8E22A58E1E200C38EF1 /* DragAndDrop.swift */,
 				510C094A2A4CFD4B001B26A0 /* ContentView.swift */,
-				519D47ED2A509B5A00928EF8 /* Settings */,
 				51F2103A2A4E09FE0046D66B /* TimeManagement.swift */,
+				519D47ED2A509B5A00928EF8 /* Settings */,
 				510C094C2A4CFD4D001B26A0 /* Assets.xcassets */,
 				510C094E2A4CFD4D001B26A0 /* Preview Content */,
-				515FA8E22A58E1E200C38EF1 /* DragAndDrop.swift */,
 			);
 			path = VisionDock;
 			sourceTree = "<group>";

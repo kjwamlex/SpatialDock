@@ -18,6 +18,7 @@ struct ContentView: View {
     @State var currentAMorPM = ""
     @State var currentDate = ""
     @State private var isPresented = false
+    @StateObject private var model = Model()
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismissWindow) private var dismissWindow
     @EnvironmentObject var openedSettings: observableBoolean
@@ -25,7 +26,8 @@ struct ContentView: View {
     var body: some View {
         VStack {
             VStack {
-                GridItemView(d: Model().data[0])
+                DemoDragRelocateView()
+                
 //                HStack {
 //                    ForEach(systemApps, id: \.self) { app in
 //                        VStack {

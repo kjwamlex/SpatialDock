@@ -9,22 +9,26 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct GridData: Identifiable, Equatable {
-    let id: Int
+    
+    let id: String
 }
 
 //MARK: - Model
 
 class Model: ObservableObject {
     @Published var data: [GridData]
+    
+    @State var systemApps:[String] = ["Safari", "Settings", "Files", "Photos"]
+    
 
     let columns = [
-        GridItem(.fixed(40))
+        GridItem(.flexible(minimum: 30, maximum: 40))
     ]
 
     init() {
-        data = Array(repeating: GridData(id: 0), count: 100)
+        data = Array(repeating: GridData(id: ""), count: 4)
         for i in 0..<data.count {
-            data[i] = GridData(id: i)
+            data[i] = GridData(id: systemApps[i])
         }
     }
 }
@@ -35,21 +39,23 @@ struct DemoDragRelocateView: View {
     @StateObject private var model = Model()
 
     @State private var dragging: GridData?
+    @State var appsCorrespondingURL:[String : String] = ["Safari" : "x-web-search://", "Settings": UIApplication.openSettingsURLString, "Files" : "shareddocuments://", "Photos" : "photos-navigation://"]
 
     var body: some View {
-        ScrollView {
-           LazyHGrid(rows: model.columns, spacing: 32) {
-                ForEach(model.data) { d in
-                    GridItemView(d: d)
-                        .overlay(dragging?.id == d.id ? Color.white.opacity(0.8) : Color.clear)
+        //ScrollView {
+           LazyHGrid(rows: model.columns, spacing: 8) {
+                ForEach(model.data) { app in
+                    DockItemView(appURL: appsCorrespondingURL[app.id] ?? "", appName: app.id )
+                        .overlay(dragging?.id == app.id ? Color.white.opacity(0.8) : Color.clear)
                         .onDrag {
-                            self.dragging = d
-                            return NSItemProvider(object: String(d.id) as NSString)
+                            self.dragging = app
+                            return NSItemProvider(object: String(app.id) as NSString)
                         }
-                        .onDrop(of: [UTType.text], delegate: DragRelocateDelegate(item: d, listData: $model.data, current: $dragging))
+                        .onDrop(of: [UTType.text], delegate: DragRelocateDelegate(item: app, listData: $model.data, current: $dragging))
                 }
             }.animation(.default, value: model.data)
-        }
+            .frame(minHeight: 30, maxHeight: 40)
+        //}
     }
 }
 
@@ -81,6 +87,29 @@ struct DragRelocateDelegate: DropDelegate {
 
 //MARK: - GridItem
 
+struct DockItemView: View {
+    var appURL: String
+    var appName: String
+    
+    var body: some View {
+        Button {
+            if let url = URL(string: appURL ?? "") {
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    print("cant")
+                }
+            }
+        } label: {
+            Image(appName)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        }.padding(5)
+            .buttonStyle(.borderless)
+            .buttonBorderShape(.circle)
+    }
+}
+
 struct GridItemView: View {
     var d: GridData
 
@@ -90,7 +119,7 @@ struct GridItemView: View {
                 .font(.headline)
                 .foregroundColor(.white)
         }
-        .frame(width: 160, height: 240)
+        .frame(minWidth: 40, maxWidth: 40, minHeight: 40, maxHeight: 40)
         .background(Color.green)
     }
 }

@@ -68,7 +68,7 @@ struct SettingsAbout: View {
                             .cornerRadius(25)
                         VStack(alignment: .leading) {
                             Text("infiniteX3I")
-                                .font(.extraLargeTitle)
+                                .font(.largeTitle) //xrOS gets extraLargeTitle
                                 .fontWeight(.bold)
                             
                             HStack {
