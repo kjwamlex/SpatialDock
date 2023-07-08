@@ -61,6 +61,7 @@
 		519D47F22A509B9500928EF8 /* SettingsShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsShortcuts.swift; sourceTree = "<group>"; };
 		519D47F42A509B9F00928EF8 /* SettingsMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMessages.swift; sourceTree = "<group>"; };
 		519D47F62A509BC400928EF8 /* SettingsReset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsReset.swift; sourceTree = "<group>"; };
+		51C8F24E2A5910FA000B7FE9 /* SpatialDock-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SpatialDock-Info.plist"; sourceTree = "<group>"; };
 		51F2103A2A4E09FE0046D66B /* TimeManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManagement.swift; sourceTree = "<group>"; };
 		51F2103D2A4E29460046D66B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/XROS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -93,6 +94,7 @@
 		510C093C2A4CFD4B001B26A0 = {
 			isa = PBXGroup;
 			children = (
+				51C8F24E2A5910FA000B7FE9 /* SpatialDock-Info.plist */,
 				510C09472A4CFD4B001B26A0 /* VisionDock */,
 				510C09582A4CFD4D001B26A0 /* VisionDockTests */,
 				510C09622A4CFD4D001B26A0 /* VisionDockUITests */,
@@ -479,6 +481,7 @@
 				DEVELOPMENT_TEAM = MQSQC2BH9W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SpatialDock-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -511,6 +514,7 @@
 				DEVELOPMENT_TEAM = MQSQC2BH9W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SpatialDock-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
