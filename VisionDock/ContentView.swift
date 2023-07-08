@@ -25,28 +25,29 @@ struct ContentView: View {
     var body: some View {
         VStack {
             VStack {
-                HStack {
-                    ForEach(systemApps, id: \.self) { app in
-                        VStack {
-                            Button {
-                                if let url = URL(string: appsCorrespondingURL[app] ?? "") {
-                                    if UIApplication.shared.canOpenURL(url) {
-                                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                                    } else {
-                                        print("cant")
-                                    }
-                                }
-                            } label: {
-                                Image(app)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                            }.padding(5)
-                            .buttonStyle(.borderless)
-                            .buttonBorderShape(.circle)
-                            //Text(app)
-                        }.frame(height:130)
-                    }
-                }
+                GridItemView(d: Model().data[0])
+//                HStack {
+//                    ForEach(systemApps, id: \.self) { app in
+//                        VStack {
+//                            Button {
+//                                if let url = URL(string: appsCorrespondingURL[app] ?? "") {
+//                                    if UIApplication.shared.canOpenURL(url) {
+//                                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//                                    } else {
+//                                        print("cant")
+//                                    }
+//                                }
+//                            } label: {
+//                                Image(app)
+//                                    .resizable()
+//                                    .aspectRatio(contentMode: .fit)
+//                            }.padding(5)
+//                            .buttonStyle(.borderless)
+//                            .buttonBorderShape(.circle)
+//                            //Text(app)
+//                        }.frame(height:130)
+//                    }
+                //}
                 VStack {
                     HStack {
                         Text("\(currentHour):\(currentMinute) \(currentAMorPM)")

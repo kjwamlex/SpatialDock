@@ -15,6 +15,7 @@
 		510C09642A4CFD4D001B26A0 /* VisionDockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510C09632A4CFD4D001B26A0 /* VisionDockUITests.swift */; };
 		510C09662A4CFD4D001B26A0 /* VisionDockUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510C09652A4CFD4D001B26A0 /* VisionDockUITestsLaunchTests.swift */; };
 		511418352A4F1A110077BAFF /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511418342A4F1A110077BAFF /* Settings.swift */; };
+		515FA8E32A58E1E200C38EF1 /* DragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515FA8E22A58E1E200C38EF1 /* DragAndDrop.swift */; };
 		519D47EC2A50897C00928EF8 /* SettingsAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47EB2A50897C00928EF8 /* SettingsAbout.swift */; };
 		519D47EF2A509B7000928EF8 /* SettingsFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47EE2A509B7000928EF8 /* SettingsFeatures.swift */; };
 		519D47F12A509B8500928EF8 /* SettingsApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47F02A509B8500928EF8 /* SettingsApps.swift */; };
@@ -53,6 +54,7 @@
 		510C09632A4CFD4D001B26A0 /* VisionDockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionDockUITests.swift; sourceTree = "<group>"; };
 		510C09652A4CFD4D001B26A0 /* VisionDockUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionDockUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		511418342A4F1A110077BAFF /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		515FA8E22A58E1E200C38EF1 /* DragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDrop.swift; sourceTree = "<group>"; };
 		519D47EB2A50897C00928EF8 /* SettingsAbout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAbout.swift; sourceTree = "<group>"; };
 		519D47EE2A509B7000928EF8 /* SettingsFeatures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeatures.swift; sourceTree = "<group>"; };
 		519D47F02A509B8500928EF8 /* SettingsApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsApps.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				51F2103A2A4E09FE0046D66B /* TimeManagement.swift */,
 				510C094C2A4CFD4D001B26A0 /* Assets.xcassets */,
 				510C094E2A4CFD4D001B26A0 /* Preview Content */,
+				515FA8E22A58E1E200C38EF1 /* DragAndDrop.swift */,
 			);
 			path = VisionDock;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				519D47F32A509B9500928EF8 /* SettingsShortcuts.swift in Sources */,
 				510C094B2A4CFD4B001B26A0 /* ContentView.swift in Sources */,
 				519D47EF2A509B7000928EF8 /* SettingsFeatures.swift in Sources */,
+				515FA8E32A58E1E200C38EF1 /* DragAndDrop.swift in Sources */,
 				519D47F12A509B8500928EF8 /* SettingsApps.swift in Sources */,
 				511418352A4F1A110077BAFF /* Settings.swift in Sources */,
 				519D47F52A509B9F00928EF8 /* SettingsMessages.swift in Sources */,
@@ -487,12 +491,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.exDevelopments.infiniteX3I;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -519,12 +524,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.exDevelopments.infiniteX3I;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
