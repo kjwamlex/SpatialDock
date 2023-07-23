@@ -23,6 +23,13 @@
 		519D47F52A509B9F00928EF8 /* SettingsMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47F42A509B9F00928EF8 /* SettingsMessages.swift */; };
 		519D47F72A509BC400928EF8 /* SettingsReset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47F62A509BC400928EF8 /* SettingsReset.swift */; };
 		51F2103B2A4E09FE0046D66B /* TimeManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F2103A2A4E09FE0046D66B /* TimeManagement.swift */; };
+		E91038E02A6DC0810077EB9A /* IconUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91038DF2A6DC0810077EB9A /* IconUtils.swift */; };
+		E989719B2A6DB0A90067A398 /* tsconfig.json in Resources */ = {isa = PBXBuildFile; fileRef = E98971952A6DB0A90067A398 /* tsconfig.json */; };
+		E989719C2A6DB0A90067A398 /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = E98971962A6DB0A90067A398 /* package.json */; };
+		E989719D2A6DB0A90067A398 /* package-lock.json in Resources */ = {isa = PBXBuildFile; fileRef = E98971972A6DB0A90067A398 /* package-lock.json */; };
+		E989719E2A6DB0A90067A398 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = E98971982A6DB0A90067A398 /* .gitignore */; };
+		E989719F2A6DB0A90067A398 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = E98971992A6DB0A90067A398 /* icons */; };
+		E98971A02A6DB0A90067A398 /* src in Resources */ = {isa = PBXBuildFile; fileRef = E989719A2A6DB0A90067A398 /* src */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +71,13 @@
 		51C8F24E2A5910FA000B7FE9 /* SpatialDock-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SpatialDock-Info.plist"; sourceTree = "<group>"; };
 		51F2103A2A4E09FE0046D66B /* TimeManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManagement.swift; sourceTree = "<group>"; };
 		51F2103D2A4E29460046D66B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/XROS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		E91038DF2A6DC0810077EB9A /* IconUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconUtils.swift; sourceTree = "<group>"; };
+		E98971952A6DB0A90067A398 /* tsconfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tsconfig.json; sourceTree = "<group>"; };
+		E98971962A6DB0A90067A398 /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
+		E98971972A6DB0A90067A398 /* package-lock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "package-lock.json"; sourceTree = "<group>"; };
+		E98971982A6DB0A90067A398 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		E98971992A6DB0A90067A398 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = icons; sourceTree = "<group>"; };
+		E989719A2A6DB0A90067A398 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +108,7 @@
 		510C093C2A4CFD4B001B26A0 = {
 			isa = PBXGroup;
 			children = (
+				E98971942A6DAFE50067A398 /* IconsServer */,
 				51C8F24E2A5910FA000B7FE9 /* SpatialDock-Info.plist */,
 				510C09472A4CFD4B001B26A0 /* VisionDock */,
 				510C09582A4CFD4D001B26A0 /* VisionDockTests */,
@@ -118,6 +133,7 @@
 			children = (
 				510C09482A4CFD4B001B26A0 /* VisionDockApp.swift */,
 				515FA8E22A58E1E200C38EF1 /* DragAndDrop.swift */,
+				E91038DF2A6DC0810077EB9A /* IconUtils.swift */,
 				510C094A2A4CFD4B001B26A0 /* ContentView.swift */,
 				51F2103A2A4E09FE0046D66B /* TimeManagement.swift */,
 				519D47ED2A509B5A00928EF8 /* Settings */,
@@ -172,6 +188,19 @@
 				51F2103D2A4E29460046D66B /* XCTest.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E98971942A6DAFE50067A398 /* IconsServer */ = {
+			isa = PBXGroup;
+			children = (
+				E98971982A6DB0A90067A398 /* .gitignore */,
+				E98971992A6DB0A90067A398 /* icons */,
+				E98971972A6DB0A90067A398 /* package-lock.json */,
+				E98971962A6DB0A90067A398 /* package.json */,
+				E989719A2A6DB0A90067A398 /* src */,
+				E98971952A6DB0A90067A398 /* tsconfig.json */,
+			);
+			path = IconsServer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,7 +307,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E989719C2A6DB0A90067A398 /* package.json in Resources */,
+				E989719B2A6DB0A90067A398 /* tsconfig.json in Resources */,
+				E989719D2A6DB0A90067A398 /* package-lock.json in Resources */,
+				E98971A02A6DB0A90067A398 /* src in Resources */,
 				510C09502A4CFD4D001B26A0 /* Preview Assets.xcassets in Resources */,
+				E989719E2A6DB0A90067A398 /* .gitignore in Resources */,
+				E989719F2A6DB0A90067A398 /* icons in Resources */,
 				510C094D2A4CFD4D001B26A0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +343,7 @@
 				51F2103B2A4E09FE0046D66B /* TimeManagement.swift in Sources */,
 				519D47F32A509B9500928EF8 /* SettingsShortcuts.swift in Sources */,
 				510C094B2A4CFD4B001B26A0 /* ContentView.swift in Sources */,
+				E91038E02A6DC0810077EB9A /* IconUtils.swift in Sources */,
 				519D47EF2A509B7000928EF8 /* SettingsFeatures.swift in Sources */,
 				515FA8E32A58E1E200C38EF1 /* DragAndDrop.swift in Sources */,
 				519D47F12A509B8500928EF8 /* SettingsApps.swift in Sources */,

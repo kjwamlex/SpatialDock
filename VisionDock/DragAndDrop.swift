@@ -109,7 +109,7 @@ struct DockItemView: View {
     var appName: String
     
     @Binding var editModeInBound: Bool
-    
+    @State var appImage: Image?
     var body: some View {
         ZStack {
             Spacer()
@@ -123,9 +123,15 @@ struct DockItemView: View {
                     }
                 }
             } label: {
-                Image(appName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+                if let appImage = appImage {
+                    appImage
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .transition(.opacity)
+                } else {
+                    ProgressView()
+                }
+                    
             }.padding(5)
                 .buttonStyle(.borderless)
                 .buttonBorderShape(.circle)
@@ -146,6 +152,10 @@ struct DockItemView: View {
                 Spacer()
             }
             
+        }.onAppear {
+            IconUtils().getIcon(name: appName, forceImageRequest: true) { img in
+                appImage = img
+            }
         }
     }
     
@@ -176,3 +186,5 @@ struct DropOutsideDelegate: DropDelegate {
         return true
     }
 }
+
+
