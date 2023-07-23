@@ -153,7 +153,7 @@ struct DockItemView: View {
             }
             
         }.onAppear {
-            IconUtils().getIcon(name: appName, forceImageRequest: true) { img in
+            IconUtils().getIcon(name: appName) { img in
                 appImage = img
             }
         }
