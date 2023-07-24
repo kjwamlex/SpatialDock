@@ -7,17 +7,21 @@
 
 import SwiftUI
 
+
+
 struct ContentView: View {
     
     let systemApps:[String] = ["Safari", "Settings", "Files", "Photos"]
     let appsCorrespondingURL:[String : String] = ["Safari" : "x-web-search://", "Settings": UIApplication.openSettingsURLString, "Files" : "shareddocuments://", "Photos" : "photos-navigation://"]
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
 
     @State var currentHour = "--"
     @State var currentMinute = "--"
     @State var currentAMorPM = ""
     @State var currentDate = ""
     @State var editDock = false
+    @State var addingApp = false
     @State private var isPresented = false
     @StateObject private var model = Model()
     @Environment(\.openWindow) private var openWindow
@@ -27,7 +31,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             VStack {
-                DemoDragRelocateView(editButton: $editDock)
+                DemoDragRelocateView(editButton: $editDock, addingApp: $addingApp)
                 VStack {
                     HStack {
                         Text("\(currentHour):\(currentMinute) \(currentAMorPM)")
@@ -49,7 +53,7 @@ struct ContentView: View {
                         Text("\(Int(UIDevice.current.batteryLevel * 100))%")
                             .fontWeight(.bold)
                             .font(.system(size: 24))
-                        Image(systemName: "battery.100")
+                        Image(systemName: "battery.100percent")
                             .symbolEffect(.bounce, value: 50.0)
                             .font(.system(size: 40))
                         Button("Edit") {
@@ -68,6 +72,8 @@ struct ContentView: View {
             .padding(20)
             Spacer()
             
+        }.sheet(isPresented: $addingApp) {
+            AddNewAppModal()
         }
         //VStack {
             // Photos app - photos-navigation://
@@ -78,6 +84,7 @@ struct ContentView: View {
             // News - applenews://
             // Shortcuts - pocketapp36486://
     }
+    
 }
 
 #Preview {

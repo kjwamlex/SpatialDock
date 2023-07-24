@@ -7,18 +7,19 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
+import PhotosUI
 
-struct GridData: Identifiable, Equatable {
-    
-    let id: String
+struct DockApp: Identifiable, Equatable {
+    var id: String //deep link
+    var name: String
 }
 
 //MARK: - Model
 
 class Model: ObservableObject {
-    @Published var data: [GridData]
+    @Published var data: [DockApp]
     
-    @State var systemApps:[String] = ["Safari", "Settings", "Files", "Photos"]
+    let systemApps: [DockApp] = [.init(id: "x-web-search://", name: "Safari"), .init(id: UIApplication.openSettingsURLString, name: "Settings"), .init(id: "shareddocuments://", name: "Files"), .init(id: "photos-navigation://", name: "Photos")]
     
 
     let columns = [
@@ -26,10 +27,9 @@ class Model: ObservableObject {
     ]
 
     init() {
-        data = Array(repeating: GridData(id: ""), count: 4)
-        for i in 0..<data.count {
-            data[i] = GridData(id: systemApps[i])
-        }
+        data = []
+        data = systemApps
+        //add user-selected apps here
     }
 }
 
@@ -37,16 +37,16 @@ class Model: ObservableObject {
 
 struct DemoDragRelocateView: View {
     @StateObject private var model = Model()
-
+    
     @Binding var editButton: Bool
-    @State private var dragging: GridData?
-    @State var appsCorrespondingURL:[String : String] = ["Safari" : "x-web-search://", "Settings": UIApplication.openSettingsURLString, "Files" : "shareddocuments://", "Photos" : "photos-navigation://"]
+    @Binding var addingApp: Bool
+    @State private var dragging: DockApp?
 
     var body: some View {
         //ScrollView {
            LazyHGrid(rows: model.columns, spacing: 8) {
                 ForEach(model.data) { app in
-                    DockItemView(appURL: appsCorrespondingURL[app.id] ?? "", appName: app.id, editModeInBound: $editButton )
+                    DockItemView(appURL: app.id ?? "", appName: app.name, editModeInBound: $editButton )
 //                        .onLongPressGesture(minimumDuration: 0.2) {
 //                            print("long press")
 //                            editButton = editButton ? true : false
@@ -67,6 +67,17 @@ struct DemoDragRelocateView: View {
                         })
                         
                 }
+               if editButton {
+                   Button {
+                       addingApp.toggle()
+                   } label: {
+                       Image(systemName: "plus.circle.fill").resizable()
+                           .aspectRatio(contentMode: .fit)
+                           .opacity(0.8)
+                   }.buttonStyle(.borderless)
+                       .buttonBorderShape(.circle).padding(5).transition(.opacity.combined(with: .slide))
+               }
+
             }.animation(.default, value: model.data)
             .frame(minHeight: 80, maxHeight: 80)
         //}
@@ -74,10 +85,10 @@ struct DemoDragRelocateView: View {
 }
 
 struct DragRelocateDelegate: DropDelegate {
-    let item: GridData
-    @Binding var listData: [GridData]
-    @Binding var current: GridData?
-
+    let item: DockApp
+    @Binding var listData: [DockApp]
+    @Binding var current: DockApp?
+    
     func dropEntered(info: DropInfo) {
         if item != current {
             let from = listData.firstIndex(of: current!)!
@@ -119,7 +130,7 @@ struct DockItemView: View {
                     if UIApplication.shared.canOpenURL(url) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     } else {
-                        print("cant")
+                        print("cant open URL \(appURL)")
                     }
                 }
             } label: {
@@ -165,7 +176,7 @@ struct DockItemView: View {
 }
 
 struct GridItemView: View {
-    var d: GridData
+    var d: DockApp
 
     var body: some View {
         VStack {
@@ -179,7 +190,7 @@ struct GridItemView: View {
 }
 
 struct DropOutsideDelegate: DropDelegate {
-    @Binding var current: GridData?
+    @Binding var current: DockApp?
         
     func performDrop(info: DropInfo) -> Bool {
         current = nil
@@ -188,3 +199,85 @@ struct DropOutsideDelegate: DropDelegate {
 }
 
 
+struct AddNewAppModal: View {
+    @State var appName: String = ""
+    @State var appLink: String = ""
+    @State var appIcon: Image = Image("NoIcon")
+    @State var loading = false
+    @State var appIconItem: PhotosPickerItem?
+    @Environment(\.dismiss) var dismiss
+    var body: some View {
+        VStack {
+            Text("Add an app to InfiniteX3I")
+                .font(.title)
+                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            Spacer()
+            VStack(alignment: .leading) {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("App Name")
+                        Text("Can be anything")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    TextField("", text: $appName).textFieldStyle(RoundedBorderTextFieldStyle()).frame(width: 300)
+                }
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("App URL")
+                        Text("If you don't know this,\ncontact the app developer.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    TextField("", text: $appLink).textFieldStyle(RoundedBorderTextFieldStyle()).frame(width: 300)
+                }
+                
+            }
+            VStack(alignment: .center) {
+                Text("App Icon")
+                if !loading {
+                    appIcon.resizable().frame(width: 100, height: 100).transition(.opacity)
+                    
+                } else {
+                    ProgressView().frame(width: 100, height: 100).transition(.opacity)
+                }
+                //need to let user choose their own
+                PhotosPicker("Choose from Photos", selection: $appIconItem, matching: .images)
+            }
+            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            Spacer()
+            Button {
+                dismiss()
+            } label: {
+                Text("Add App")
+            }
+
+        }.padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).frame(width: 500).onChange(of: appName) { _ in
+            if appIconItem == nil {
+                withAnimation {
+                    loading = true
+                }
+                IconUtils().getIcon(name: appName) { img in
+                    withAnimation {
+                        appIcon = img
+                        loading = false
+                    }
+                }
+            }
+        }.onChange(of: appIconItem) { _ in
+            Task {
+                if let data = try? await appIconItem?.loadTransferable(type: Data.self) {
+                    appIcon = Image(uiImage: UIImage(data: data) ?? UIImage(named: "NoIcon")!)
+                }
+            }
+        }
+    }
+}
+
+
+
+#Preview {
+    AddNewAppModal()
+}

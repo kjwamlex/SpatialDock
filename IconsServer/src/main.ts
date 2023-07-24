@@ -5,7 +5,9 @@ const app = express()
 const port = 3000
 app.use(bodyParser.json())
 app.post("/image", (req, res) => {
+    
     let imageRequest = new ImageRequest((req.body.name as string).toLowerCase())
+    console.log("incoming request for " + imageRequest.appName)
     if (existsSync(`./icons/${imageRequest.appName}.png`)) {
         //icon exists! return image
         let returnData = {

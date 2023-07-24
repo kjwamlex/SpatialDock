@@ -11,6 +11,8 @@ import SwiftUI
 struct VisionDockApp: App {
     @StateObject var openedSettings = observableBoolean()
     init() {
+        //enable battery monitoring for battery level in dock
+        UIDevice.current.isBatteryMonitoringEnabled = true
         //check if cacheDirectory exists, and if not make it
         let cacheDirectory = IconUtils().getDocumentsDirectory().appendingPathComponent("cache", conformingTo: .directory)
         var directory: ObjCBool = true //weird FileManager stuff

@@ -14,11 +14,8 @@ class TimeManagement: NSObject {
         let calendar = Calendar.current
         let day = String(describing: calendar.component(.day, from: date))
         //let year = String(describing: calendar.component(.year, from: date))
-        
-        let monthFormatted = date.getFormattedDate(format: "MMM")
-        let dayFormatted = date.getFormattedDate(format: "EEE")
-        
-        return dayFormatted + " " + monthFormatted + " " + day
+        let dateFormatted = date.getFormattedDate(format: "EEE MMM")
+        return dateFormatted + " " + day
     }
     
     func getAMorPM() -> String {
