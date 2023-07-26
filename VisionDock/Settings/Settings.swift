@@ -10,7 +10,7 @@ import SwiftUI
 enum SettingsNavigation {
     case about
     case MoreFeatures
-    case apps
+    case subscription
     case shortcuts
     case messages
     case reset
@@ -31,23 +31,23 @@ struct Settings: View {
 //            
             List(selection: $selectedNavigation) {
                 NavigationLink(destination: SettingsAbout()) {
-                    Label("About infiniteX3I", systemImage: "info.circle")
+                    Label("About VisionDock", systemImage: "info.circle")
                 }
                 .tag(SettingsNavigation.about)
                 NavigationLink(destination: SettingsFeatures()) {
                     Label("More Features", systemImage: "bubbles.and.sparkles.fill")
                 }
                 .tag(SettingsNavigation.MoreFeatures)
-                NavigationLink(destination: SettingsApps()) {
-                    Label("Apps", systemImage: "dock.rectangle")
-                }
-                .tag(SettingsNavigation.apps)
                 NavigationLink(destination: SettingsShortcuts()) {
-                    Label("Shortcuts", systemImage: "arrow.up.left")
+                    Label("Shortcuts", systemImage: "dock.rectangle")
                 }
                 .tag(SettingsNavigation.shortcuts)
                 NavigationLink(destination: SettingsMessages()) {
                     Label("Messages", systemImage: "bubble.left.fill")
+                }
+                
+                NavigationLink(destination: SettingsSubscription()) {
+                    Label("Subscription", systemImage: "rays")
                 }
                 .tag(SettingsNavigation.messages)
                 NavigationLink(destination: SettingsReset()) {

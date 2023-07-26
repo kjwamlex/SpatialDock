@@ -17,16 +17,42 @@ struct SettingsShortcuts: View {
     // 5. Ask if they want to add shortcut to the app
     // 6. Add it to the app
     
+    // We can look into "Add shortcuts" in "Launcher" app on the App Store.
+    
     @Environment(\.defaultMinListRowHeight) var minRowHeight
+    @Environment(\.defaultMinListHeaderHeight) var listHeaderHeight
     var body: some View {
         VStack {
             List {
-                Text("hi")
-                Text("hi")
-                Text("hi")
-            }.frame(minHeight: minRowHeight * 3)
+                Section {
+                    Text("Safari")
+                    Text("Photos")
+                    Text("Settings")
+                } header: {
+                    Text("Available Apps")
+                }
+                
+                Section {
+                    Text("Shortcut 1")
+                    Text("Shortcut 2")
+                    Text("Shortcut 3")
+                } header: {
+                    Text("Shortcuts")
+                } footer: {
+                    Text("To add more shortcuts, please add more by pressing + button at top right corner.")
+                }
+            }//.frame(minHeight: (minRowHeight * 6) + (3 * listHeaderHeight!))
         }
         .navigationTitle("Shortcuts")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    // new pop up view controller here
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
     }
 }
 

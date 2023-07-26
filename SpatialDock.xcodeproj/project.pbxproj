@@ -18,10 +18,10 @@
 		515FA8E32A58E1E200C38EF1 /* DragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515FA8E22A58E1E200C38EF1 /* DragAndDrop.swift */; };
 		519D47EC2A50897C00928EF8 /* SettingsAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47EB2A50897C00928EF8 /* SettingsAbout.swift */; };
 		519D47EF2A509B7000928EF8 /* SettingsFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47EE2A509B7000928EF8 /* SettingsFeatures.swift */; };
-		519D47F12A509B8500928EF8 /* SettingsApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47F02A509B8500928EF8 /* SettingsApps.swift */; };
 		519D47F32A509B9500928EF8 /* SettingsShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47F22A509B9500928EF8 /* SettingsShortcuts.swift */; };
 		519D47F52A509B9F00928EF8 /* SettingsMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47F42A509B9F00928EF8 /* SettingsMessages.swift */; };
 		519D47F72A509BC400928EF8 /* SettingsReset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47F62A509BC400928EF8 /* SettingsReset.swift */; };
+		51D5FAA52A70E36600006225 /* SettingsSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D5FAA42A70E36600006225 /* SettingsSubscription.swift */; };
 		51F2103B2A4E09FE0046D66B /* TimeManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F2103A2A4E09FE0046D66B /* TimeManagement.swift */; };
 		E91038E02A6DC0810077EB9A /* IconUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91038DF2A6DC0810077EB9A /* IconUtils.swift */; };
 		E989719B2A6DB0A90067A398 /* tsconfig.json in Resources */ = {isa = PBXBuildFile; fileRef = E98971952A6DB0A90067A398 /* tsconfig.json */; };
@@ -64,11 +64,11 @@
 		515FA8E22A58E1E200C38EF1 /* DragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDrop.swift; sourceTree = "<group>"; };
 		519D47EB2A50897C00928EF8 /* SettingsAbout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAbout.swift; sourceTree = "<group>"; };
 		519D47EE2A509B7000928EF8 /* SettingsFeatures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeatures.swift; sourceTree = "<group>"; };
-		519D47F02A509B8500928EF8 /* SettingsApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsApps.swift; sourceTree = "<group>"; };
 		519D47F22A509B9500928EF8 /* SettingsShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsShortcuts.swift; sourceTree = "<group>"; };
 		519D47F42A509B9F00928EF8 /* SettingsMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMessages.swift; sourceTree = "<group>"; };
 		519D47F62A509BC400928EF8 /* SettingsReset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsReset.swift; sourceTree = "<group>"; };
 		51C8F24E2A5910FA000B7FE9 /* SpatialDock-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SpatialDock-Info.plist"; sourceTree = "<group>"; };
+		51D5FAA42A70E36600006225 /* SettingsSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSubscription.swift; sourceTree = "<group>"; };
 		51F2103A2A4E09FE0046D66B /* TimeManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManagement.swift; sourceTree = "<group>"; };
 		51F2103D2A4E29460046D66B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/XROS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		E91038DF2A6DC0810077EB9A /* IconUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconUtils.swift; sourceTree = "<group>"; };
@@ -133,9 +133,9 @@
 			children = (
 				510C09482A4CFD4B001B26A0 /* VisionDockApp.swift */,
 				515FA8E22A58E1E200C38EF1 /* DragAndDrop.swift */,
+				51F2103A2A4E09FE0046D66B /* TimeManagement.swift */,
 				E91038DF2A6DC0810077EB9A /* IconUtils.swift */,
 				510C094A2A4CFD4B001B26A0 /* ContentView.swift */,
-				51F2103A2A4E09FE0046D66B /* TimeManagement.swift */,
 				519D47ED2A509B5A00928EF8 /* Settings */,
 				510C094C2A4CFD4D001B26A0 /* Assets.xcassets */,
 				510C094E2A4CFD4D001B26A0 /* Preview Content */,
@@ -174,9 +174,9 @@
 				511418342A4F1A110077BAFF /* Settings.swift */,
 				519D47EB2A50897C00928EF8 /* SettingsAbout.swift */,
 				519D47EE2A509B7000928EF8 /* SettingsFeatures.swift */,
-				519D47F02A509B8500928EF8 /* SettingsApps.swift */,
 				519D47F22A509B9500928EF8 /* SettingsShortcuts.swift */,
 				519D47F42A509B9F00928EF8 /* SettingsMessages.swift */,
+				51D5FAA42A70E36600006225 /* SettingsSubscription.swift */,
 				519D47F62A509BC400928EF8 /* SettingsReset.swift */,
 			);
 			path = Settings;
@@ -346,11 +346,11 @@
 				E91038E02A6DC0810077EB9A /* IconUtils.swift in Sources */,
 				519D47EF2A509B7000928EF8 /* SettingsFeatures.swift in Sources */,
 				515FA8E32A58E1E200C38EF1 /* DragAndDrop.swift in Sources */,
-				519D47F12A509B8500928EF8 /* SettingsApps.swift in Sources */,
 				511418352A4F1A110077BAFF /* Settings.swift in Sources */,
 				519D47F52A509B9F00928EF8 /* SettingsMessages.swift in Sources */,
 				519D47F72A509BC400928EF8 /* SettingsReset.swift in Sources */,
 				510C09492A4CFD4B001B26A0 /* VisionDockApp.swift in Sources */,
+				51D5FAA52A70E36600006225 /* SettingsSubscription.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

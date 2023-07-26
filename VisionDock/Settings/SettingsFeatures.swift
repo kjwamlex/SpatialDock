@@ -19,11 +19,11 @@ struct SettingsFeatures: View {
     var body: some View {
         VStack {
             List {
-                Toggle("Option Example", isOn: $optionExample)
-                Toggle("Option Example", isOn: $optionExample)
-                Toggle("Option Example", isOn: $optionExample)
-                Toggle("Option Example", isOn: $optionExample)
-            }.frame(minHeight: minRowHeight * 4)
+                Toggle("Music Widget", isOn: $optionExample)
+                Toggle("Time Widget", isOn: $optionExample)
+                Toggle("Battery Widget", isOn: $optionExample)
+                Toggle("Date Widget", isOn: $optionExample)
+            }
         }
         .navigationTitle("More Features")
     }

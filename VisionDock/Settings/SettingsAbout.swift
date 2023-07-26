@@ -22,73 +22,35 @@ struct SettingsAbout: View {
     
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     var body: some View {
-        //Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-        ScrollView(.vertical, showsIndicators: true) {
-            //            VStack(alignment: .leading, spacing: 20) {
-            //                Group {
-            //                    HStack(alignment: .top) {
-            //                        Image("Safari")
-            //                            .resizable()
-            //                            .scaledToFit()
-            //                            .frame(width: 130, height: 130)
-            //                            .cornerRadius(25)
-            //                        VStack(alignment: .leading) {
-            //                            Text("infiniteX3I")
-            //                                .font(.largeTitle)
-            //                                .fontWeight(.bold)
-            //                            
-            //                            HStack {
-            //                                Text("3.0")
-            //                                    .font(.title3)
-            //                                Image(systemName: "chevron.right")
-            //                                    .foregroundColor(Color(.systemGray4))
-            //                            }
-            //                        }.padding()
-            //                        Spacer()
-            //                    }.padding(40.0)
-            //                }
-            //                
-            //                
-            //            }
-            //            
-            //            
-            //
-            //        }
-            
-            //        Table(stuff) {
-            //            TableColumn("", value: \.settingsOption)
-            //        }
-            VStack {
-                Group {
-                    HStack(alignment: .top) {
-                        Image("Safari")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 130, height: 130)
-                            .cornerRadius(25)
-                        VStack(alignment: .leading) {
-                            Text("infiniteX3I")
-                                .font(.extraLargeTitle) //xrOS gets extraLargeTitle
-                                .fontWeight(.bold)
-                            
-                            HStack {
-                                Text("Version 3.0")
-                                    .font(.title3)
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(Color(.systemGray4))
-                            }
-                        }.padding()
-                        Spacer()
-                    }.padding(40.0)
+        VStack {
+            Group {
+                HStack(alignment: .top) {
+                    Image("Safari")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 130, height: 130)
+                        .cornerRadius(25)
+                    VStack(alignment: .leading) {
+                        Text("VisionDock")
+                            .font(.extraLargeTitle)
+                            .fontWeight(.bold)
+                        HStack {
+                            Text("Version 1.0")
+                                .font(.title3)
+                        }
+                    }.padding()
+                    Spacer()
+                }.padding(20.0)
+            }
+            List {
+                Section {
+                    SettingsGroupRow(title: "Lead Developer", detail:"Joonwoo Kim (@iOS_App_Dev)", link: "https://twitter.com/iOS_App_Dev")
+                    SettingsGroupRow(title: "Developer", detail: "Payton (@paytondev)", link: "https://twitter.com/paytondev")
+                    
+                } header: {
+                    Text("Developers")
                 }
             }
-            
-            List {
-                Text("hi")
-                Text("hi")
-                Text("hi")
-                Toggle("Option Example", isOn: $optionExample)
-            }.frame(minHeight: minRowHeight * 4)
         }
         .navigationTitle("About")
     }
@@ -96,4 +58,26 @@ struct SettingsAbout: View {
 
 #Preview {
     SettingsAbout()
+}
+
+
+struct SettingsGroupRow: View {
+    @State var title: String
+    @State var detail: String
+    @State var link: String?
+    
+    var body: some View {
+        HStack {
+            Text(title)
+                .fontWeight(.bold)
+            Spacer()
+            Text(detail)
+            if (link != nil) {
+                Link(destination: URL(string: link!)!) {
+                    Image(systemName: "arrow.up.right.square")
+                }
+            }
+        }
+        
+    }
 }
