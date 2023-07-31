@@ -19,6 +19,10 @@ struct SettingsShortcuts: View {
     
     // We can look into "Add shortcuts" in "Launcher" app on the App Store.
     
+    @State private var showSystemApps = false
+    @State private var showShortcuts = false
+    @State private var selectedSystemApps: [String] = []
+    
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     @Environment(\.defaultMinListHeaderHeight) var listHeaderHeight
     var body: some View {
@@ -43,6 +47,14 @@ struct SettingsShortcuts: View {
                 }
             }//.frame(minHeight: (minRowHeight * 6) + (3 * listHeaderHeight!))
         }
+        .sheet(isPresented: $showSystemApps) {
+            SettingsAvailableInstalledSystemApps(selectedApps: $selectedSystemApps)
+                .frame(width: 1000, height: 1000)
+        }
+        .sheet(isPresented: $showShortcuts) {
+            SettingsAvailableShortcuts(selectedShortcuts: $selectedSystemApps)
+                .frame(width: 1000, height: 400)
+        }
         .navigationTitle("Shortcuts")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -50,8 +62,15 @@ struct SettingsShortcuts: View {
                 
                 Menu {
                     Section("Add...") {
-                        Button("Apps", action: addApps)
-                        Button("Shortcuts", action: addShortcuts)
+                        Button("Apps") {
+                            showSystemApps.toggle()
+                        }
+                        
+                        
+                        Button("Shortcuts") {
+                            showShortcuts.toggle()
+                        }
+                        
                     }
                 } label: {
                     Label("", systemImage: "plus")
