@@ -29,7 +29,7 @@ struct SettingsShortcuts: View {
                     Text("Photos")
                     Text("Settings")
                 } header: {
-                    Text("Available Apps")
+                    Text("Added System Apps")
                 }
                 
                 Section {
@@ -46,13 +46,28 @@ struct SettingsShortcuts: View {
         .navigationTitle("Shortcuts")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    // new pop up view controller here
+                
+                
+                Menu {
+                    Section("Add...") {
+                        Button("Apps", action: addApps)
+                        Button("Shortcuts", action: addShortcuts)
+                    }
                 } label: {
-                    Image(systemName: "plus")
+                    Label("", systemImage: "plus")
                 }
+                
+                
             }
         }
+    }
+    
+    func addShortcuts() {
+        
+    }
+    
+    func addApps() {
+        
     }
 }
 
