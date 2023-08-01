@@ -23,12 +23,30 @@ struct SettingsAvailableInstalledSystemApps: View {
     
     @Environment(\.dismiss) var dismiss
     @Binding var selectedApps:[String]
+    @State var listOfApps:[String] = ["Safari", "Messages", "Settings", "Photos"]
+    @State private var appSelection = Set<String>()
+    @State private var selection: String?
+    
     var body: some View {
-        Button("Dismiss") {
-            dismiss()
+        NavigationView {
+            VStack {
+                Spacer()
+                List(listOfApps, id: \.self, selection: $appSelection) { appName in
+                    Text(appName)
+                }
+            }
+            .navigationTitle("Add Shortcuts")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        print(appSelection)
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
+            }
         }
-        .font(.title)
-        .padding()
     }
 }
 

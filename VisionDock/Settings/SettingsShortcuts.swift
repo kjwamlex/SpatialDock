@@ -22,6 +22,7 @@ struct SettingsShortcuts: View {
     @State private var showSystemApps = false
     @State private var showShortcuts = false
     @State private var selectedSystemApps: [String] = []
+    @State var editMode: EditMode = .active
     
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     @Environment(\.defaultMinListHeaderHeight) var listHeaderHeight
@@ -49,11 +50,12 @@ struct SettingsShortcuts: View {
         }
         .sheet(isPresented: $showSystemApps) {
             SettingsAvailableInstalledSystemApps(selectedApps: $selectedSystemApps)
-                .frame(width: 1000, height: 1000)
+                .frame(width: 500, height: 500)
+                .environment(\.editMode, $editMode)
         }
         .sheet(isPresented: $showShortcuts) {
             SettingsAvailableShortcuts(selectedShortcuts: $selectedSystemApps)
-                .frame(width: 1000, height: 400)
+                .frame(width: 500, height: 500)
         }
         .navigationTitle("Shortcuts")
         .toolbar {
