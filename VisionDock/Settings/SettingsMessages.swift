@@ -30,3 +30,12 @@ struct SettingsMessages: View {
 #Preview {
     SettingsMessages()
 }
+
+
+/*
+func phone(phoneNum: String) {
+    if let url = URL(string: "tel://\(phoneNum)") {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}
+*/

@@ -19,7 +19,17 @@ struct DockApp: Identifiable, Equatable {
 class Model: ObservableObject {
     @Published var data: [DockApp]
     
-    let systemApps: [DockApp] = [.init(id: "x-web-search://", name: "Safari"), .init(id: UIApplication.openSettingsURLString, name: "Settings"), .init(id: "shareddocuments://", name: "Files"), .init(id: "photos-navigation://", name: "Photos")]
+    // For each of the name, add prefix
+    // Shortcuts Prefix:  SHORTCUTS::
+    // Contact Prefix:    CONTACT::
+    // System App Prefix: SYSTEM::
+    
+    // There should be a better way of organizing this...
+    
+    let systemApps: [DockApp] = [.init(id: "x-web-search://", name: "Safari"),
+        .init(id: UIApplication.openSettingsURLString, name: "Settings"),
+        .init(id: "shareddocuments://", name: "Files"),
+        .init(id: "photos-navigation://", name: "Photos")]
     
 
     let columns = [
@@ -46,12 +56,7 @@ struct DemoDragRelocateView: View {
         //ScrollView {
            LazyHGrid(rows: model.columns, spacing: 8) {
                 ForEach(model.data) { app in
-                    DockItemView(appURL: app.id ?? "", appName: app.name, editModeInBound: $editButton )
-//                        .onLongPressGesture(minimumDuration: 0.2) {
-//                            print("long press")
-//                            editButton = editButton ? true : false
-//                        }
-                        //.overlay(dragging?.id == app.id ? Color.white.opacity(0.8) : Color.clear)
+                    DockItemView(appURL: app.id, appName: app.name, editModeInBound: $editButton)
                         .onDrag {
                             if !editButton {
                                 editButton = true
@@ -134,6 +139,8 @@ struct DockItemView: View {
                     }
                 }
             } label: {
+                
+                // determine how to design this button by looking at the prefixes of the appName.
                 if let appImage = appImage {
                     appImage
                         .resizable()
