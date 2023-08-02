@@ -12,6 +12,13 @@ import PhotosUI
 struct DockApp: Identifiable, Equatable {
     var id: String //deep link
     var name: String
+    var type: ShortcutType
+}
+
+enum ShortcutType {
+    case shortcut
+    case contact
+    case system
 }
 
 //MARK: - Model
@@ -26,10 +33,10 @@ class Model: ObservableObject {
     
     // There should be a better way of organizing this...
     
-    let systemApps: [DockApp] = [.init(id: "x-web-search://", name: "Safari"),
-        .init(id: UIApplication.openSettingsURLString, name: "Settings"),
-        .init(id: "shareddocuments://", name: "Files"),
-        .init(id: "photos-navigation://", name: "Photos")]
+    let systemApps: [DockApp] = [.init(id: "x-web-search://", name: "Safari", type: .system),
+                                 .init(id: UIApplication.openSettingsURLString, name: "Settings", type: .system),
+                                 .init(id: "shareddocuments://", name: "Files", type: .system),
+                                 .init(id: "photos-navigation://", name: "Photos", type: .system)]
     
 
     let columns = [
