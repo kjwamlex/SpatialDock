@@ -36,7 +36,8 @@ struct SettingsShortcuts: View {
                 Section {
                     ForEach(itemsInDock, id: \.self) { item in
                         Text(item.name)
-                    }.onMove { from, to in
+                    }
+                    .onMove { from, to in
                         itemsInDock.move(fromOffsets: from, toOffset: to)
                         do {
                             let encodedData = try? JSONEncoder().encode(itemsInDock)
@@ -46,12 +47,24 @@ struct SettingsShortcuts: View {
                             print(error)
                         }
                     }
+                    .onDelete { offset in
+                        itemsInDock.remove(atOffsets: offset)
+                        do {
+                            let encodedData = try? JSONEncoder().encode(itemsInDock)
+                            try encodedData?.write(to: fileManager.userDockConfigJSON)
+                            NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
+                        } catch {
+                            print(error)
+                        }
+                        NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
+                    }
                 } header: {
                     Text("Added Shortcuts and Apps in Dock")
                 } footer: {
                     Text("To add more shortcuts or Apps, please add more by pressing + button at top right corner.")
                 }
-            }.environment(\.editMode, $editMode)//.frame(minHeight: (minRowHeight * 6) + (3 * listHeaderHeight!))
+            }
+            .environment(\.editMode, $editMode)//.frame(minHeight: (minRowHeight * 6) + (3 * listHeaderHeight!))
         }
         .onReceive(reloadNotification) { _ in
             refreshList()
