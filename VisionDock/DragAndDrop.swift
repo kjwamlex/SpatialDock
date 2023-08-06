@@ -107,7 +107,7 @@ struct DemoDragRelocateView: View {
         //ScrollView {
            LazyHGrid(rows: model.columns, spacing: 8) {
                 ForEach(model.data) { app in
-                    DockItemView(appURL: app.id, appName: app.name, editModeInBound: $editButton)
+                    DockItemView(appURL: app.id, appName: app.name, editModeInBound: $editButton, modelInUse: model, dockApp: app)
                         .onDrag {
                             if !editButton {
                                 editButton = true
@@ -144,6 +144,7 @@ struct DragRelocateDelegate: DropDelegate {
     let item: DockApp
     @Binding var listData: [DockApp]
     @Binding var current: DockApp?
+    let fileManager = FBFileManager.init()
     
     func dropEntered(info: DropInfo) {
         if item != current {
@@ -152,15 +153,24 @@ struct DragRelocateDelegate: DropDelegate {
             if listData[to].id != current!.id {
                 listData.move(fromOffsets: IndexSet(integer: from),
                     toOffset: to > from ? to + 1 : to)
+                
             }
         }
     }
 
     func dropUpdated(info: DropInfo) -> DropProposal? {
+        do {
+            let encodedData = try? JSONEncoder().encode(listData)
+            try encodedData?.write(to: fileManager.userDockConfigJSON)
+            NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
+        } catch {
+            print(error)
+        }
         return DropProposal(operation: .move)
     }
 
     func performDrop(info: DropInfo) -> Bool {
+        
         self.current = nil
         return true
     }
@@ -176,7 +186,11 @@ struct DockItemView: View {
     var appName: String
     
     @Binding var editModeInBound: Bool
+    var modelInUse: Model
+    var dockApp: DockApp
     @State var appImage: Image?
+    let fileManager = FBFileManager.init()
+    
     var body: some View {
         ZStack {
             Spacer()
@@ -209,6 +223,21 @@ struct DockItemView: View {
                 HStack {
                     Spacer()
                     Button {
+                        
+                        for (index, app) in modelInUse.data.enumerated() {
+                            if app == dockApp {
+                                modelInUse.data.remove(at: index)
+                                break
+                            }
+                        }
+                        
+                        do {
+                            let encodedData = try? JSONEncoder().encode(modelInUse.data)
+                            try encodedData?.write(to: fileManager.userDockConfigJSON)
+                            NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
+                        } catch {
+                            print(error)
+                        }
                         
                     } label: {
                         Image(systemName: "xmark.circle.fill")
