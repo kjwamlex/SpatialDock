@@ -46,6 +46,7 @@ struct VisionDockApp: App {
                             let existingShortcutData = try Data(contentsOf: fileManager.shortcutStorage)
                             var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
                             decodedData.append(app)
+                            print(decodedData)
                             let encodedData = try? JSONEncoder().encode(decodedData)
                             try encodedData?.write(to: fileManager.shortcutStorage)
                         } catch {

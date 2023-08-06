@@ -57,10 +57,15 @@ class Model: ObservableObject {
             data = systemApps
             fileManager.createBasicDirectory()
             fileManager.createFile(name: "SpatialDockSaved.json", atPath: dockSavedPath)
-            fileManager.createFile(name: "SpatialDockImportedShortcuts.json", atPath: fileManager.shortcutStorage)
+            fileManager.createFile(name: "SpatialDockImportedShortcuts.json", atPath: fileManager.mainPath)
             do {
                 let encodedData = try? JSONEncoder().encode(data)
                 try encodedData?.write(to: dockSavedPath)
+                
+                let emptyArray:[DockApp] = []
+                let encodedDataForImports = try? JSONEncoder().encode(emptyArray)
+                try encodedDataForImports?.write(to: fileManager.shortcutStorage)
+                
             } catch {
                 print(error)
             }

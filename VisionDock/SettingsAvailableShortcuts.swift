@@ -47,7 +47,7 @@ struct SettingsAvailableShortcuts: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         do {
-                            let existingShortcutData = try Data(contentsOf: fileManager.shortcutStorage)
+                            let existingShortcutData = try Data(contentsOf: fileManager.userDockConfigJSON)
                             var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
                             
                             for addApps in shortcutsSelection {
