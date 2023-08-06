@@ -58,6 +58,7 @@ struct VisionDockApp: App {
                     
                 })
         }
+        .defaultSize(width: 1.5, height: 0.11, depth: 0.0, in: .meters)
         
         WindowGroup("Settings", id: "settings") {
             Settings()

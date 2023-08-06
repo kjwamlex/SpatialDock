@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "F30B1364-C003-46E0-8882-E77BC20DF920"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7877B7E8-C142-4A5B-85E4-B73E9AE87C33"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VisionDock/VisionDockApp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "7877B7E8-C142-4A5B-85E4-B73E9AE87C33 - cbf9dd5badde3075"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SpatialDock.VisionDockApp.body.getter : some"
+                  moduleName = "SpatialDock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/joonwookim/Desktop/Xcode%20Projects%202023/VisionDock/VisionDock/VisionDockApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "1052">
+               </Location>
+               <Location
+                  uuid = "7877B7E8-C142-4A5B-85E4-B73E9AE87C33 - 2bc9bc624ac50fd8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.environmentObject&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Combine.ObservableObject&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0 in SpatialDock.VisionDockApp.body.getter : some"
+                  moduleName = "SpatialDock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/joonwookim/Desktop/Xcode%20Projects%202023/VisionDock/VisionDock/VisionDockApp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "284">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
