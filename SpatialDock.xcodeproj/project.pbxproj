@@ -24,6 +24,7 @@
 		519D47F52A509B9F00928EF8 /* SettingsMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47F42A509B9F00928EF8 /* SettingsMessages.swift */; };
 		519D47F72A509BC400928EF8 /* SettingsReset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47F62A509BC400928EF8 /* SettingsReset.swift */; };
 		51D5FAA52A70E36600006225 /* SettingsSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D5FAA42A70E36600006225 /* SettingsSubscription.swift */; };
+		51E1D9872A7F34AC0060F979 /* FBFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1D9862A7F34AC0060F979 /* FBFileManager.swift */; };
 		51F2103B2A4E09FE0046D66B /* TimeManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F2103A2A4E09FE0046D66B /* TimeManagement.swift */; };
 		E91038E02A6DC0810077EB9A /* IconUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91038DF2A6DC0810077EB9A /* IconUtils.swift */; };
 		E989719B2A6DB0A90067A398 /* tsconfig.json in Resources */ = {isa = PBXBuildFile; fileRef = E98971952A6DB0A90067A398 /* tsconfig.json */; };
@@ -73,6 +74,7 @@
 		519D47F62A509BC400928EF8 /* SettingsReset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsReset.swift; sourceTree = "<group>"; };
 		51C8F24E2A5910FA000B7FE9 /* SpatialDock-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "SpatialDock-Info.plist"; sourceTree = "<group>"; };
 		51D5FAA42A70E36600006225 /* SettingsSubscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSubscription.swift; sourceTree = "<group>"; };
+		51E1D9862A7F34AC0060F979 /* FBFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBFileManager.swift; sourceTree = "<group>"; };
 		51F2103A2A4E09FE0046D66B /* TimeManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManagement.swift; sourceTree = "<group>"; };
 		51F2103D2A4E29460046D66B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/XROS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		E91038DF2A6DC0810077EB9A /* IconUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconUtils.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			children = (
 				510C09482A4CFD4B001B26A0 /* VisionDockApp.swift */,
 				515FA8E22A58E1E200C38EF1 /* DragAndDrop.swift */,
+				51E1D9862A7F34AC0060F979 /* FBFileManager.swift */,
 				51F2103A2A4E09FE0046D66B /* TimeManagement.swift */,
 				E91038DF2A6DC0810077EB9A /* IconUtils.swift */,
 				510C094A2A4CFD4B001B26A0 /* ContentView.swift */,
@@ -355,6 +358,7 @@
 				515FA8E32A58E1E200C38EF1 /* DragAndDrop.swift in Sources */,
 				511418352A4F1A110077BAFF /* Settings.swift in Sources */,
 				519D47F52A509B9F00928EF8 /* SettingsMessages.swift in Sources */,
+				51E1D9872A7F34AC0060F979 /* FBFileManager.swift in Sources */,
 				518747882A77821300109E11 /* SettingsAvailableShortcuts.swift in Sources */,
 				519D47F72A509BC400928EF8 /* SettingsReset.swift in Sources */,
 				510C09492A4CFD4B001B26A0 /* VisionDockApp.swift in Sources */,

@@ -9,16 +9,14 @@ import SwiftUI
 import UniformTypeIdentifiers
 import PhotosUI
 
-struct DockApp: Identifiable, Equatable {
+struct DockApp: Codable, Identifiable, Equatable {
     var id: String //deep link
     var name: String
     var type: ShortcutType
 }
 
-enum ShortcutType {
-    case shortcut
-    case contact
-    case system
+enum ShortcutType: Int, Codable {
+    case shortcut = 1, contact, system
 }
 
 //MARK: - Model
@@ -33,11 +31,12 @@ class Model: ObservableObject {
     
     // There should be a better way of organizing this...
     
-    let systemApps: [DockApp] = [.init(id: "x-web-search://", name: "Safari", type: .system),
+    var systemApps: [DockApp] = [.init(id: "x-web-search://", name: "Safari", type: .system),
                                  .init(id: UIApplication.openSettingsURLString, name: "Settings", type: .system),
                                  .init(id: "shareddocuments://", name: "Files", type: .system),
                                  .init(id: "photos-navigation://", name: "Photos", type: .system)]
     
+    let fileManager = FBFileManager.init()
 
     let columns = [
         GridItem(.flexible(minimum: 80, maximum: 80))
@@ -46,7 +45,38 @@ class Model: ObservableObject {
     init() {
         data = []
         data = systemApps
-        //add user-selected apps here
+        
+        let dockSavedPath = fileManager.mainPath.appendingPathComponent("SpatialDockSaved.json")
+        print(dockSavedPath)
+        
+        if !fileManager.fileManager.fileExists(atPath: dockSavedPath.relativePath) {
+            print("file does not exist")
+            fileManager.createBasicDirectory()
+            fileManager.createFile(name: "SpatialDockSaved.json", atPath: dockSavedPath)
+            do {
+                let encodedData = try? JSONEncoder().encode(data)
+                try encodedData?.write(to: dockSavedPath)
+                let data = try Data(contentsOf: dockSavedPath)
+            } catch {
+                print(error)
+            }
+            return
+        }
+        
+        refreshData()
+    }
+    
+    func refreshData() {
+        do {
+            let data = try Data(contentsOf: dockSavedPath)
+            let decodedData = try JSONDecoder().decode([DockApp].self, from: data)
+            print(decodedData)
+            systemApps = decodedData
+            print(systemApps)
+            print(data)
+        } catch {
+            print(error)
+        }
     }
 }
 
