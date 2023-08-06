@@ -20,6 +20,7 @@ struct VisionDockApp: App {
         if !directory.boolValue {
             try? FileManager.default.createDirectory(at: cacheDirectory, withIntermediateDirectories: true)
         } else {
+            
         }
     }
     var body: some Scene {
@@ -38,8 +39,18 @@ struct VisionDockApp: App {
 //                    }
                     //we would store it in DockApp as
                     if let shortcutName = url.pathComponents[2].replacingOccurrences(of: "run-shortcut?name=", with: "").removingPercentEncoding {
+                        
                         let app = DockApp(id: "shortcuts://\(url.pathComponents[2])", name: shortcutName, type: .shortcut)
-                        //store this somewhere
+                        let fileManager = FBFileManager.init()
+                        do {
+                            let existingShortcutData = try Data(contentsOf: fileManager.shortcutStorage)
+                            var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
+                            decodedData.append(app)
+                            let encodedData = try? JSONEncoder().encode(decodedData)
+                            try encodedData?.write(to: fileManager.shortcutStorage)
+                        } catch {
+                            print(error)
+                        }
                     } else {
                         print("couldn't get shortcut name: " + (url.pathComponents[2].replacingOccurrences(of: "run-shortcut?name=", with: "").removingPercentEncoding)!)
                     }

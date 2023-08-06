@@ -21,74 +21,68 @@ struct SettingsShortcuts: View {
     
     @State private var showSystemApps = false
     @State private var showShortcuts = false
-    @State private var selectedSystemApps: [String] = []
+    @State private var selectedShortcuts: [DockApp] = []
+    @State private var itemsInDock: [DockApp] = []
     @State var editMode: EditMode = .active
+    let fileManager = FBFileManager.init()
+    let reloadNotification = NotificationCenter.default.publisher(for: NSNotification.Name("reloadDockItems"))
     
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     @Environment(\.defaultMinListHeaderHeight) var listHeaderHeight
+    
     var body: some View {
         VStack {
             List {
                 Section {
-                    Text("Safari")
-                    Text("Photos")
-                    Text("Settings")
+                    ForEach(itemsInDock, id: \.self) { item in
+                        Text(item.name)
+                    }.onMove { from, to in
+                        itemsInDock.move(fromOffsets: from, toOffset: to)
+                        do {
+                            let encodedData = try? JSONEncoder().encode(itemsInDock)
+                            try encodedData?.write(to: fileManager.userDockConfigJSON)
+                            NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
+                        } catch {
+                            print(error)
+                        }
+                    }
                 } header: {
-                    Text("Added System Apps")
-                }
-                
-                Section {
-                    Text("Shortcut 1")
-                    Text("Shortcut 2")
-                    Text("Shortcut 3")
-                } header: {
-                    Text("Shortcuts")
+                    Text("Added Shortcuts and Apps in Dock")
                 } footer: {
-                    Text("To add more shortcuts, please add more by pressing + button at top right corner.")
+                    Text("To add more shortcuts or Apps, please add more by pressing + button at top right corner.")
                 }
-            }//.frame(minHeight: (minRowHeight * 6) + (3 * listHeaderHeight!))
+            }.environment(\.editMode, $editMode)//.frame(minHeight: (minRowHeight * 6) + (3 * listHeaderHeight!))
         }
-        .sheet(isPresented: $showSystemApps) {
-            SettingsAvailableInstalledSystemApps(selectedApps: $selectedSystemApps)
-                .frame(width: 500, height: 500)
-                .environment(\.editMode, $editMode)
+        .onReceive(reloadNotification) { _ in
+            refreshList()
+        }
+        .onAppear {
+            refreshList()
         }
         .sheet(isPresented: $showShortcuts) {
-            SettingsAvailableShortcuts(selectedShortcuts: $selectedSystemApps)
+            SettingsAvailableShortcuts(selectedShortcuts: $selectedShortcuts)
                 .frame(width: 500, height: 500)
         }
         .navigationTitle("Shortcuts")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                
-                
-                Menu {
-                    Section("Add...") {
-                        Button("Apps") {
-                            showSystemApps.toggle()
-                        }
-                        
-                        
-                        Button("Shortcuts") {
-                            showShortcuts.toggle()
-                        }
-                        
-                    }
+                Button {
+                    showShortcuts.toggle()
                 } label: {
                     Label("", systemImage: "plus")
                 }
-                
-                
             }
         }
     }
     
-    func addShortcuts() {
-        
-    }
-    
-    func addApps() {
-        
+    func refreshList() {
+        do {
+            let data = try Data(contentsOf: fileManager.userDockConfigJSON)
+            let decodedData = try JSONDecoder().decode([DockApp].self, from: data)
+            itemsInDock = decodedData
+        } catch {
+            print(error)
+        }
     }
 }
 

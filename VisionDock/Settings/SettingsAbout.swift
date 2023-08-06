@@ -31,7 +31,7 @@ struct SettingsAbout: View {
                         .frame(width: 130, height: 130)
                         .cornerRadius(25)
                     VStack(alignment: .leading) {
-                        Text("VisionDock")
+                        Text("SpatialDock")
                             .font(.extraLargeTitle)
                             .fontWeight(.bold)
                         HStack {

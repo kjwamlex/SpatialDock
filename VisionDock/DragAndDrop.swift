@@ -9,10 +9,14 @@ import SwiftUI
 import UniformTypeIdentifiers
 import PhotosUI
 
-struct DockApp: Codable, Identifiable, Equatable {
+struct DockApp: Codable, Identifiable, Equatable, Hashable {
     var id: String //deep link
     var name: String
     var type: ShortcutType
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
 }
 
 enum ShortcutType: Int, Codable {
@@ -44,13 +48,16 @@ class Model: ObservableObject {
 
     init() {
         data = []
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receivedRefreshNotification(notification:)), name: Notification.Name("reloadDockItems"), object: nil)
+                                               
         let dockSavedPath = fileManager.userDockConfigJSON
         print(dockSavedPath)
-        
         if !fileManager.fileManager.fileExists(atPath: dockSavedPath.relativePath) {
             print("file does not exist")
+            data = systemApps
             fileManager.createBasicDirectory()
             fileManager.createFile(name: "SpatialDockSaved.json", atPath: dockSavedPath)
+            fileManager.createFile(name: "SpatialDockImportedShortcuts.json", atPath: fileManager.shortcutStorage)
             do {
                 let encodedData = try? JSONEncoder().encode(data)
                 try encodedData?.write(to: dockSavedPath)
@@ -60,15 +67,20 @@ class Model: ObservableObject {
             return
         }
         refreshData()
+        
+    }
+    
+    @objc func receivedRefreshNotification(notification: NSNotification) {
+        refreshData()
     }
     
     func refreshData() {
         let dockSavedPath = fileManager.userDockConfigJSON
         do {
-            let data = try Data(contentsOf: dockSavedPath)
-            let decodedData = try JSONDecoder().decode([DockApp].self, from: data)
+            let savedData = try Data(contentsOf: dockSavedPath)
+            let decodedData = try JSONDecoder().decode([DockApp].self, from: savedData)
             print(decodedData)
-            systemApps = decodedData
+            data = decodedData
             print(systemApps)
             print(data)
         } catch {

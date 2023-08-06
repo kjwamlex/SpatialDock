@@ -20,17 +20,21 @@ class FBFileManager {
     var userDockConfigJSON: URL
     var shortcutStorage: URL
     var shortcutImageStorage: URL
+    var userCustomDockSystemAppImageStorage: URL
     
     init() {
         self.fileManager = FileManager.default
         self.mainPath = self.fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("SpatialDock")
         self.userDockConfigJSON = self.mainPath.appendingPathComponent("SpatialDockSaved.json")
-        self.shortcutStorage = self.fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("SpatialDock")
-        self.shortcutImageStorage = self.mainPath.appendingPathComponent("SpatialDock")
+        self.shortcutStorage = self.mainPath.appendingPathComponent("SpatialDockImportedShortcuts.json")
+        self.shortcutImageStorage = self.mainPath.appendingPathComponent("SpatialDockShortcutImage")
+        self.userCustomDockSystemAppImageStorage = self.mainPath.appendingPathComponent("SpatialDockSystemAppImage")
     }
     
     func createBasicDirectory() {
         self.createFolder(name: "SpatialDock", atPath: self.fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0])
+        self.createFolder(name: "SpatialDockShortcutImage", atPath: self.mainPath)
+        self.createFolder(name: "SpatialDockSystemAppImage", atPath: self.mainPath)
     }
     
     func createFolder(name: String, atPath: URL) {
