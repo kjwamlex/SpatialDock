@@ -17,10 +17,16 @@ extension URL {
 class FBFileManager {
     var fileManager: FileManager
     var mainPath: URL
+    var userDockConfigJSON: URL
+    var shortcutStorage: URL
+    var shortcutImageStorage: URL
     
     init() {
         self.fileManager = FileManager.default
         self.mainPath = self.fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("SpatialDock")
+        self.userDockConfigJSON = self.mainPath.appendingPathComponent("SpatialDockSaved.json")
+        self.shortcutStorage = self.fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("SpatialDock")
+        self.shortcutImageStorage = self.mainPath.appendingPathComponent("SpatialDock")
     }
     
     func createBasicDirectory() {

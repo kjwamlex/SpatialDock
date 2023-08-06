@@ -44,9 +44,7 @@ class Model: ObservableObject {
 
     init() {
         data = []
-        data = systemApps
-        
-        let dockSavedPath = fileManager.mainPath.appendingPathComponent("SpatialDockSaved.json")
+        let dockSavedPath = fileManager.userDockConfigJSON
         print(dockSavedPath)
         
         if !fileManager.fileManager.fileExists(atPath: dockSavedPath.relativePath) {
@@ -56,17 +54,16 @@ class Model: ObservableObject {
             do {
                 let encodedData = try? JSONEncoder().encode(data)
                 try encodedData?.write(to: dockSavedPath)
-                let data = try Data(contentsOf: dockSavedPath)
             } catch {
                 print(error)
             }
             return
         }
-        
         refreshData()
     }
     
     func refreshData() {
+        let dockSavedPath = fileManager.userDockConfigJSON
         do {
             let data = try Data(contentsOf: dockSavedPath)
             let decodedData = try JSONDecoder().decode([DockApp].self, from: data)
