@@ -31,7 +31,7 @@ struct Settings: View {
 //            
             List(selection: $selectedNavigation) {
                 NavigationLink(destination: SettingsAbout()) {
-                    Label("About VisionDock", systemImage: "info.circle")
+                    Label("About SpatialDock", systemImage: "info.circle")
                 }
                 .tag(SettingsNavigation.about)
                 NavigationLink(destination: SettingsFeatures()) {

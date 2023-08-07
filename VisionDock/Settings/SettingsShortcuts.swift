@@ -35,7 +35,14 @@ struct SettingsShortcuts: View {
             List {
                 Section {
                     ForEach(itemsInDock, id: \.self) { item in
-                        Text(item.name)
+                        HStack {
+                            Image("Photos")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width:40, height: 40)
+                                
+                            Text(item.name)
+                        }
                     }
                     .onMove { from, to in
                         itemsInDock.move(fromOffsets: from, toOffset: to)

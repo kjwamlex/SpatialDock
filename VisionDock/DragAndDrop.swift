@@ -45,6 +45,7 @@ class Model: ObservableObject {
     let columns = [
         GridItem(.flexible(minimum: 80, maximum: 80))
     ]
+    let widgets:[String] = ["Time", "Date", "Battery"]
 
     init() {
         data = []
@@ -58,6 +59,13 @@ class Model: ObservableObject {
             fileManager.createBasicDirectory()
             fileManager.createFile(name: "SpatialDockSaved.json", atPath: dockSavedPath)
             fileManager.createFile(name: "SpatialDockImportedShortcuts.json", atPath: fileManager.mainPath)
+            
+            for widget in widgets {
+                UserDefaults.standard.set(true, forKey: widget)
+            }
+            
+            UserDefaults.standard.set(widgets, forKey: "widgetOrder")
+            
             do {
                 let encodedData = try? JSONEncoder().encode(data)
                 try encodedData?.write(to: dockSavedPath)
