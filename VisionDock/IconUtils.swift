@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import SwiftUI
 
 //retrieve & cache files from image server
@@ -57,48 +58,69 @@ class IconUtils: NSObject {
                 
                 let cacheDirectory = self.getCachePath(appName: name.lowercased())
 //                print("writing \(name) to cache at \(cacheDirectory.absoluteString)")
-                do {
-                    do {
-                        try FileManager.default.removeItem(at: cacheDirectory)
-                    } catch {
-                        print("error removing \(name).png: \(error)")
-                    }
-                    try imgData.write(to: cacheDirectory, options: .noFileProtection)
-//                    print("successfully wrote \(name) to cache at \(cacheDirectory.absoluteString)")
-                } catch {
-                    print("there was an error writing \(name) to cache: \(error)")
-                }
+                self.addDataToCache(name: name.lowercased(), data: imgData)
+//                do {
+//                    do {
+//                        try FileManager.default.removeItem(at: cacheDirectory)
+//                    } catch {
+//                        print("error removing \(name).png: \(error)")
+//                    }
+//                    try imgData.write(to: cacheDirectory, options: .noFileProtection)
+////                    print("successfully wrote \(name) to cache at \(cacheDirectory.absoluteString)")
+//                } catch {
+//                    print("there was an error writing \(name) to cache: \(error)")
+//                }
             }
             completion(image)
         }.resume()
     }
+    
+    func addDataToCache(name: String, data: Data) {
+        let cacheDirectory = self.getCachePath(appName: name.lowercased())
+        print("adding \(name) to cache at \(cacheDirectory)")
+        do {
+            do {
+                try FileManager.default.removeItem(at: cacheDirectory)
+            } catch {
+                print("error removing \(name).png: \(error)")
+            }
+            let img = UIImage(data: data)?.pngData()
+            FileManager.default.createFile(atPath: cacheDirectory.path(), contents: nil)
+            let exists = FileManager.default.fileExists(atPath: cacheDirectory.path())
+           print("file exists: \(exists)")
+                try img?.write(to: cacheDirectory)
+                    print("successfully wrote \(name) to cache at \(cacheDirectory.absoluteString)")
+        } catch {
+            print("there was an error writing \(name) to cache: \(error)")
+        }
+    }
     //checks if app icon is in local cache & if it should be updated. returns true if it's cached, returns false if needs to be downloaded
     private func checkIfInCache(appName: String) -> Bool {
-//        print("checking \(appName) cache status")
+        print("checking \(appName) cache status")
         let path = self.getCachePath(appName: appName)
         
         if doesFileExist(url: path) {
-//            print("\(path.absoluteString) exists!")
             let imgAttributes = try? FileManager.default.attributesOfItem(atPath: path.path()) as NSDictionary
             //checks if file is less than 30 days old. if so, we're good to go!
             if imgAttributes == nil {
-//                print("imgAttributes nil!")
+                print("imgAttributes nil!")
                 return false
             }
             if imgAttributes!.fileCreationDate()!.timeIntervalSince(Date()) < ((60*60)*24)*30 {
-//                print("\(appName) is less than 30 days old! \(-imgAttributes!.fileCreationDate()!.timeIntervalSince(Date())), \(((60*60)*24)*30)")
+                print("\(appName) is less than 30 days old! \(-imgAttributes!.fileCreationDate()!.timeIntervalSince(Date())), \(((60*60)*24)*30)")
                 return true
             } else {
-//                print("\(appName) is more than 30 days old.")
+                print("\(appName) is more than 30 days old.")
                 return false
             }
         } else {
-//            print("\(appName) cache record does NOT exist! \(path.path())")
+            print("\(appName) cache record does NOT exist! \(path.path())")
         }
         return false
     }
     private func getCachePath(appName: String) -> URL {
-        return getDocumentsDirectory().appendingPathComponent("cache", conformingTo: .directory).appendingPathComponent("\(appName.lowercased())", conformingTo: .png)
+       
+        return getDocumentsDirectory().appendingPathComponent("cache", conformingTo: .directory).appendingPathComponent("\(appName.lowercased().replacingOccurrences(of: " ", with: "-"))", conformingTo: .png)
     }
     //just returns app documents directory. makes life so much easier
     func getDocumentsDirectory() -> URL {

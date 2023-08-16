@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import PhotosUI
 struct SettingsShortcuts: View {
     
     // Add shortcut through Shortcuts app.
@@ -21,6 +21,7 @@ struct SettingsShortcuts: View {
     
     @State private var showSystemApps = false
     @State private var showShortcuts = false
+    @State private var addAppView = false
     @State private var selectedShortcuts: [DockApp] = []
     @State private var itemsInDock: [DockApp] = []
     @State var editMode: EditMode = .active
@@ -29,20 +30,29 @@ struct SettingsShortcuts: View {
     
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     @Environment(\.defaultMinListHeaderHeight) var listHeaderHeight
-    
+    @State var editingShortcutView = false
+    //using this to get around a weird SwiftUI bug where parameters passed into a view from .sheet don't get updated :/
+    @State var itemBeingEdited: DockApp = .init(id: "", name: "", type: .system)
     var body: some View {
         VStack {
             List {
                 Section {
                     ForEach(itemsInDock, id: \.self) { item in
-                        HStack {
-                            Image("Photos")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width:40, height: 40)
-                                
-                            Text(item.name)
-                        }
+                            HStack {
+                                Image("Photos")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width:40, height: 40)
+                                    
+                                Text(item.name)
+
+                            }.contextMenu {
+                                Button("Edit") {
+                                    itemBeingEdited = item
+                                    editingShortcutView.toggle()
+                                }
+                            }
+
                     }
                     .onMove { from, to in
                         itemsInDock.move(fromOffsets: from, toOffset: to)
@@ -82,15 +92,32 @@ struct SettingsShortcuts: View {
         .sheet(isPresented: $showShortcuts) {
             SettingsAvailableShortcuts(selectedShortcuts: $selectedShortcuts)
                 .frame(width: 500, height: 500)
-        }
+        }.sheet(isPresented: $addAppView, content: {
+            AddNewAppModal()
+        }).sheet(isPresented: $editingShortcutView, onDismiss: {
+            refreshList()
+            NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
+        }, content: {
+            EditShortcutView(item: $itemBeingEdited)
+        })
         .navigationTitle("Shortcuts")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showShortcuts.toggle()
+                Menu {
+                    Button(action: {
+                        showShortcuts.toggle()
+                    }, label: {
+                        Text("\(Image(systemName: "curlybraces")) Add Shortcut") //TODO: maybe find a better icon for this?
+                    })
+                    Button(action: {
+                        addAppView.toggle()
+                    }, label: {
+                        Text("\(Image(systemName: "app.badge")) Add App") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
+                    })
                 } label: {
-                    Label("", systemImage: "plus")
+                    Image(systemName: "plus")
                 }
+
             }
         }
     }
@@ -108,4 +135,242 @@ struct SettingsShortcuts: View {
 
 #Preview {
     SettingsShortcuts()
+}
+struct AddNewAppModal: View {
+    @State var appName: String = ""
+    @State var appLink: String = ""
+    @State var appIcon: Image = Image("NoIcon")
+    @State var loading = false
+    @State var appIconItem: PhotosPickerItem?
+    @Environment(\.dismiss) var dismiss
+    @State var imgData: Data?
+    var body: some View {
+        VStack {
+            HStack {
+                Spacer()
+                Text("Add an app to InfiniteX3I")
+                    .font(.title)
+                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                Spacer()
+                //doing it this way because Toolbar make the view too tall
+                    Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                }
+            }
+            .padding(.horizontal)
+            Spacer()
+            VStack(alignment: .leading) {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("App Name")
+                        Text("Can be anything")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    TextField("", text: $appName).textFieldStyle(RoundedBorderTextFieldStyle()).frame(width: 300)
+                }
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("App URL")
+                        Text("If you don't know this,\ncontact the app developer.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    TextField("", text: $appLink).textFieldStyle(RoundedBorderTextFieldStyle()).frame(width: 300)
+                }
+                
+            }
+            VStack(alignment: .center) {
+                Text("App Icon")
+                if !loading {
+                    appIcon.resizable().frame(width: 100, height: 100).transition(.opacity).clipShape(Circle())
+                    
+                } else {
+                    ProgressView().frame(width: 100, height: 100).transition(.opacity)
+                }
+                //need to let user choose their own
+                PhotosPicker("Choose from Photos", selection: $appIconItem, matching: .images)
+            }
+            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            Spacer()
+            Button {
+                var app = DockApp(id: appLink, name: appName, type: .system)
+                if let data = imgData {
+                    IconUtils().addDataToCache(name: appName.lowercased(), data: data)
+                }
+                var fileManager = FBFileManager.init()
+                do {
+                    let existingShortcutData = try Data(contentsOf: fileManager.shortcutStorage)
+                    var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
+                    decodedData.append(app)
+                    print(decodedData)
+                    let encodedData = try? JSONEncoder().encode(decodedData)
+                    try encodedData?.write(to: fileManager.shortcutStorage)
+                } catch {
+                    print(error)
+                }
+                
+                dismiss()
+            } label: {
+                Text("Add App")
+            }
+
+        }.padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).frame(width: 500).onChange(of: appName) { _ in
+            if appIconItem == nil {
+                withAnimation {
+                    loading = true
+                }
+                IconUtils().getIcon(name: appName) { img in
+                    withAnimation {
+                        appIcon = img
+                        loading = false
+                    }
+                }
+            }
+        }.onChange(of: appIconItem) { _ in
+            Task {
+                if let data = try? await appIconItem?.loadTransferable(type: Data.self) {
+                    imgData = data
+                    appIcon = Image(uiImage: UIImage(data: data) ?? UIImage(named: "NoIcon")!)
+                }
+            }
+        }
+    }
+}
+
+struct EditShortcutView: View {
+    @Binding var item: DockApp
+    @State var appIcon: Image = Image("NoIcon")
+    @State var loading = false
+    @State var appIconItem: PhotosPickerItem?
+    @Environment(\.dismiss) var dismiss
+    @State var imgData: Data?
+    var body: some View {
+        VStack {
+            HStack {
+                Spacer()
+                Text("Edit \(item.name)")
+                    .font(.title)
+                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                Spacer()
+                //doing it this way because Toolbar make the view too tall
+                    Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                }
+            }
+            .padding(.horizontal)
+            Spacer()
+            VStack(alignment: .leading) {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Name")
+                        Text("Can be anything")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    TextField("", text: $item.name).textFieldStyle(RoundedBorderTextFieldStyle()).frame(width: 300)
+                }
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("App URL")
+                        Text("If you don't know this,\ncontact the app developer.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    TextField("", text: $item.id).textFieldStyle(RoundedBorderTextFieldStyle()).frame(width: 300).disabled(!(item.type == ShortcutType.system))
+                }
+                
+            }
+            VStack(alignment: .center) {
+                Text("App Icon")
+                if !loading {
+                    appIcon.resizable().frame(width: 100, height: 100).transition(.opacity).clipShape(Circle())
+                    
+                } else {
+                    ProgressView().frame(width: 100, height: 100).transition(.opacity)
+                }
+                //need to let user choose their own
+                PhotosPicker("Choose from Photos", selection: $appIconItem, matching: .images)
+            }
+            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            Spacer()
+            Button {
+                if let data = imgData {
+                    IconUtils().addDataToCache(name: item.name, data: data)
+                }
+                var fileManager = FBFileManager.init()
+                do {
+                    let existingShortcutData = try Data(contentsOf: fileManager.shortcutStorage)
+                    var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
+                    if decodedData.contains(where: { app in
+                        app.uuid == item.uuid
+                    }) {
+                        decodedData.removeAll { app in
+                            print(app.uuid == item.uuid, app.name, item.name)
+                            return app.uuid == item.uuid
+                            
+                        }
+                    }
+                    decodedData.append(item)
+                    print(decodedData)
+                    let encodedData = try? JSONEncoder().encode(decodedData)
+                    try encodedData?.write(to: fileManager.shortcutStorage)
+                    let dockSavedPath = fileManager.userDockConfigJSON
+                    do {
+                        let savedData = try Data(contentsOf: dockSavedPath)
+                        var decodedData = try JSONDecoder().decode([DockApp].self, from: savedData)
+                        if decodedData.contains(where: { app in
+                            app.uuid == item.uuid
+                        }) {
+                            decodedData.removeAll { app in
+                                print(app.uuid == item.uuid, app.name, item.name)
+                                return app.uuid == item.uuid
+                                
+                            }
+                            decodedData.append(item)
+                            let encodedData = try? JSONEncoder().encode(decodedData)
+                            try? encodedData?.write(to: fileManager.userDockConfigJSON)
+                        }
+                    } catch {
+                        print(error)
+                    }
+
+                } catch {
+                    print(error)
+                }
+                
+                dismiss()
+            } label: {
+                Text("Save")
+            }
+
+        }.padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).frame(width: 500).onChange(of: item.name, initial: true) { _,_  in
+            if appIconItem == nil {
+                withAnimation {
+                    loading = true
+                }
+                IconUtils().getIcon(name: item.name) { img in
+                    withAnimation {
+                        appIcon = img
+                        loading = false
+                    }
+                }
+            }
+        }.onChange(of: appIconItem) { _ in
+            Task {
+                if let data = try? await appIconItem?.loadTransferable(type: Data.self) {
+                    imgData = data
+                    appIcon = Image(uiImage: UIImage(data: data) ?? UIImage(named: "NoIcon")!)
+                }
+            }
+        }
+    }
 }

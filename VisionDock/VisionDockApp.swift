@@ -15,9 +15,8 @@ struct VisionDockApp: App {
         UIDevice.current.isBatteryMonitoringEnabled = true
         //check if cacheDirectory exists, and if not make it
         let cacheDirectory = IconUtils().getDocumentsDirectory().appendingPathComponent("cache", conformingTo: .directory)
-        var directory: ObjCBool = true //weird FileManager stuff
-        FileManager.default.fileExists(atPath: cacheDirectory.absoluteString, isDirectory: &directory)
-        if !directory.boolValue {
+        if !FileManager.default.fileExists(atPath: cacheDirectory.absoluteString) {
+            print("cache: \(cacheDirectory)")
             try? FileManager.default.createDirectory(at: cacheDirectory, withIntermediateDirectories: true)
         } else {
             

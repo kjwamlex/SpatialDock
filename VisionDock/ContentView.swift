@@ -24,7 +24,6 @@ struct ContentView: View {
     @State var currentAMorPM = ""
     @State var currentDate = ""
     @State var editDock = false
-    @State var addingApp = false
     @State private var isPresented = false
     @StateObject private var model = Model()
     @Environment(\.openWindow) private var openWindow
@@ -34,7 +33,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             VStack {
-                DemoDragRelocateView(editButton: $editDock, addingApp: $addingApp)
+                DemoDragRelocateView(editButton: $editDock)
                 VStack {
                     HStack {
                         ForEach(widgets, id: \.self) { item in
@@ -84,8 +83,6 @@ struct ContentView: View {
             .padding(20)
             Spacer()
             
-        }.sheet(isPresented: $addingApp) {
-            AddNewAppModal()
         }
         
 

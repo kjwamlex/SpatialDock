@@ -10,10 +10,10 @@ import UniformTypeIdentifiers
 import PhotosUI
 
 struct DockApp: Codable, Identifiable, Equatable, Hashable {
+    var uuid: UUID = UUID()
     var id: String //deep link
     var name: String
     var type: ShortcutType
-    
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
     }
@@ -108,7 +108,6 @@ struct DemoDragRelocateView: View {
     @StateObject private var model = Model()
     
     @Binding var editButton: Bool
-    @Binding var addingApp: Bool
     @State private var dragging: DockApp?
 
     var body: some View {
@@ -131,16 +130,6 @@ struct DemoDragRelocateView: View {
                         })
                         
                 }
-               if editButton {
-                   Button {
-                       addingApp.toggle()
-                   } label: {
-                       Image(systemName: "plus.circle.fill").resizable()
-                           .aspectRatio(contentMode: .fit)
-                           .opacity(0.8)
-                   }.buttonStyle(.borderless)
-                       .buttonBorderShape(.circle).padding(5).transition(.opacity.combined(with: .slide))
-               }
 
             }.animation(.default, value: model.data)
             .frame(minHeight: 80, maxHeight: 80)
@@ -219,6 +208,7 @@ struct DockItemView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .transition(.opacity)
+                        .clipShape(Circle())
                 } else {
                     ProgressView()
                 }
@@ -262,6 +252,10 @@ struct DockItemView: View {
             IconUtils().getIcon(name: appName) { img in
                 appImage = img
             }
+        }.onChange(of: modelInUse.data) { oldValue, newValue in
+            IconUtils().getIcon(name: appName) { img in
+                appImage = img
+            }
         }
     }
     
@@ -294,85 +288,3 @@ struct DropOutsideDelegate: DropDelegate {
 }
 
 
-struct AddNewAppModal: View {
-    @State var appName: String = ""
-    @State var appLink: String = ""
-    @State var appIcon: Image = Image("NoIcon")
-    @State var loading = false
-    @State var appIconItem: PhotosPickerItem?
-    @Environment(\.dismiss) var dismiss
-    var body: some View {
-        VStack {
-            Text("Add an app to InfiniteX3I")
-                .font(.title)
-                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-            Spacer()
-            VStack(alignment: .leading) {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("App Name")
-                        Text("Can be anything")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                    TextField("", text: $appName).textFieldStyle(RoundedBorderTextFieldStyle()).frame(width: 300)
-                }
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("App URL")
-                        Text("If you don't know this,\ncontact the app developer.")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                    TextField("", text: $appLink).textFieldStyle(RoundedBorderTextFieldStyle()).frame(width: 300)
-                }
-                
-            }
-            VStack(alignment: .center) {
-                Text("App Icon")
-                if !loading {
-                    appIcon.resizable().frame(width: 100, height: 100).transition(.opacity)
-                    
-                } else {
-                    ProgressView().frame(width: 100, height: 100).transition(.opacity)
-                }
-                //need to let user choose their own
-                PhotosPicker("Choose from Photos", selection: $appIconItem, matching: .images)
-            }
-            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-            Spacer()
-            Button {
-                dismiss()
-            } label: {
-                Text("Add App")
-            }
-
-        }.padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).frame(width: 500).onChange(of: appName) { _ in
-            if appIconItem == nil {
-                withAnimation {
-                    loading = true
-                }
-                IconUtils().getIcon(name: appName) { img in
-                    withAnimation {
-                        appIcon = img
-                        loading = false
-                    }
-                }
-            }
-        }.onChange(of: appIconItem) { _ in
-            Task {
-                if let data = try? await appIconItem?.loadTransferable(type: Data.self) {
-                    appIcon = Image(uiImage: UIImage(data: data) ?? UIImage(named: "NoIcon")!)
-                }
-            }
-        }
-    }
-}
-
-
-
-#Preview {
-    AddNewAppModal()
-}
