@@ -20,7 +20,7 @@ struct DockApp: Codable, Identifiable, Equatable, Hashable {
 }
 
 enum ShortcutType: Int, Codable {
-    case shortcut = 1, contact, system
+    case shortcut = 1, contact, system, app
 }
 
 //MARK: - Model

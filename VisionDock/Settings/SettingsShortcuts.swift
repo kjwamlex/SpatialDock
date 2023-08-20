@@ -198,7 +198,7 @@ struct AddNewAppModal: View {
             .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             Spacer()
             Button {
-                var app = DockApp(id: appLink, name: appName, type: .system)
+                var app = DockApp(id: appLink, name: appName, type: .app)
                 if let data = imgData {
                     IconUtils().addDataToCache(name: appName.lowercased(), data: data)
                 }
@@ -275,7 +275,7 @@ struct EditShortcutView: View {
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
-                    TextField("", text: $item.id).textFieldStyle(RoundedBorderTextFieldStyle()).frame(width: 300).disabled(!(item.type == ShortcutType.system))
+                    TextField("", text: $item.id).textFieldStyle(RoundedBorderTextFieldStyle()).frame(width: 300).disabled(!(item.type == ShortcutType.app)).opacity(item.type != ShortcutType.app ? 0.5 : 1)
                 }
                 
             }
