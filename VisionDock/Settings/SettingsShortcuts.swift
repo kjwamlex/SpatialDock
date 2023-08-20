@@ -203,16 +203,17 @@ struct AddNewAppModal: View {
                     IconUtils().addDataToCache(name: appName.lowercased(), data: data)
                 }
                 var fileManager = FBFileManager.init()
-                do {
-                    let existingShortcutData = try Data(contentsOf: fileManager.shortcutStorage)
-                    var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
-                    decodedData.append(app)
-                    print(decodedData)
-                    let encodedData = try? JSONEncoder().encode(decodedData)
-                    try encodedData?.write(to: fileManager.shortcutStorage)
-                } catch {
-                    print(error)
-                }
+                AppManager.addDockAppToStore(item: app, store: fileManager.shortcutStorage)
+//                do {
+//                    let existingShortcutData = try Data(contentsOf: fileManager.shortcutStorage)
+//                    var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
+//                    decodedData.append(app)
+//                    print(decodedData)
+//                    let encodedData = try? JSONEncoder().encode(decodedData)
+//                    try encodedData?.write(to: fileManager.shortcutStorage)
+//                } catch {
+//                    print(error)
+//                }
                 
                 dismiss()
             } label: {
@@ -306,47 +307,12 @@ struct EditShortcutView: View {
                 if let data = imgData {
                     IconUtils().addDataToCache(name: item.name, data: data)
                 }
-                var fileManager = FBFileManager.init()
-                do {
-                    let existingShortcutData = try Data(contentsOf: fileManager.shortcutStorage)
-                    var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
-                    if decodedData.contains(where: { app in
-                        app.uuid == item.uuid
-                    }) {
-                        decodedData.removeAll { app in
-                            print(app.uuid == item.uuid, app.name, item.name)
-                            return app.uuid == item.uuid
-                            
-                        }
-                    }
-                    decodedData.append(item)
-                    print(decodedData)
-                    let encodedData = try? JSONEncoder().encode(decodedData)
-                    try encodedData?.write(to: fileManager.shortcutStorage)
-                    let dockSavedPath = fileManager.userDockConfigJSON
-                    do {
-                        let savedData = try Data(contentsOf: dockSavedPath)
-                        var decodedData = try JSONDecoder().decode([DockApp].self, from: savedData)
-                        if decodedData.contains(where: { app in
-                            app.uuid == item.uuid
-                        }) {
-                            decodedData.removeAll { app in
-                                print(app.uuid == item.uuid, app.name, item.name)
-                                return app.uuid == item.uuid
-                                
-                            }
-                            decodedData.append(item)
-                            let encodedData = try? JSONEncoder().encode(decodedData)
-                            try? encodedData?.write(to: fileManager.userDockConfigJSON)
-                        }
-                    } catch {
-                        print(error)
-                    }
-
-                } catch {
-                    print(error)
-                }
-                
+                let fileManager = FBFileManager.init()
+                    //this code may seem useless at first glance (removing and then immediately adding back the item??) but it is useful and necessary so please oh please leave it!
+                    AppManager.removeAppFromStore(item: item, store: fileManager.shortcutStorage)
+                    AppManager.addDockAppToStore(item: item, store: fileManager.shortcutStorage)
+                    AppManager.removeAppFromStore(item: item, store: fileManager.userDockConfigJSON)
+                    AppManager.addDockAppToStore(item: item, store: fileManager.userDockConfigJSON)
                 dismiss()
             } label: {
                 Text("Save")
@@ -364,7 +330,7 @@ struct EditShortcutView: View {
                     }
                 }
             }
-        }.onChange(of: appIconItem) { _ in
+        }.onChange(of: appIconItem, initial: false) { _,_  in
             Task {
                 if let data = try? await appIconItem?.loadTransferable(type: Data.self) {
                     imgData = data

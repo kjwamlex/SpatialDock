@@ -26,6 +26,7 @@
 		51E1D9872A7F34AC0060F979 /* FBFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1D9862A7F34AC0060F979 /* FBFileManager.swift */; };
 		51F2103B2A4E09FE0046D66B /* TimeManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F2103A2A4E09FE0046D66B /* TimeManagement.swift */; };
 		E91038E02A6DC0810077EB9A /* IconUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91038DF2A6DC0810077EB9A /* IconUtils.swift */; };
+		E92219B22A929FA200D8BD82 /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92219B12A929FA200D8BD82 /* AppManager.swift */; };
 		E989719B2A6DB0A90067A398 /* tsconfig.json in Resources */ = {isa = PBXBuildFile; fileRef = E98971952A6DB0A90067A398 /* tsconfig.json */; };
 		E989719C2A6DB0A90067A398 /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = E98971962A6DB0A90067A398 /* package.json */; };
 		E989719D2A6DB0A90067A398 /* package-lock.json in Resources */ = {isa = PBXBuildFile; fileRef = E98971972A6DB0A90067A398 /* package-lock.json */; };
@@ -76,6 +77,7 @@
 		51F2103A2A4E09FE0046D66B /* TimeManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManagement.swift; sourceTree = "<group>"; };
 		51F2103D2A4E29460046D66B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/XROS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		E91038DF2A6DC0810077EB9A /* IconUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconUtils.swift; sourceTree = "<group>"; };
+		E92219B12A929FA200D8BD82 /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		E98971952A6DB0A90067A398 /* tsconfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tsconfig.json; sourceTree = "<group>"; };
 		E98971962A6DB0A90067A398 /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
 		E98971972A6DB0A90067A398 /* package-lock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "package-lock.json"; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				510C09482A4CFD4B001B26A0 /* VisionDockApp.swift */,
 				515FA8E22A58E1E200C38EF1 /* DragAndDrop.swift */,
 				51E1D9862A7F34AC0060F979 /* FBFileManager.swift */,
+				E92219B12A929FA200D8BD82 /* AppManager.swift */,
 				51F2103A2A4E09FE0046D66B /* TimeManagement.swift */,
 				E91038DF2A6DC0810077EB9A /* IconUtils.swift */,
 				510C094A2A4CFD4B001B26A0 /* ContentView.swift */,
@@ -351,6 +354,7 @@
 				510C094B2A4CFD4B001B26A0 /* ContentView.swift in Sources */,
 				E91038E02A6DC0810077EB9A /* IconUtils.swift in Sources */,
 				519D47EF2A509B7000928EF8 /* SettingsFeatures.swift in Sources */,
+				E92219B22A929FA200D8BD82 /* AppManager.swift in Sources */,
 				515FA8E32A58E1E200C38EF1 /* DragAndDrop.swift in Sources */,
 				511418352A4F1A110077BAFF /* Settings.swift in Sources */,
 				519D47F52A509B9F00928EF8 /* SettingsMessages.swift in Sources */,
