@@ -204,17 +204,6 @@ struct AddNewAppModal: View {
                 }
                 var fileManager = FBFileManager.init()
                 AppManager.addDockAppToStore(item: app, store: fileManager.shortcutStorage)
-//                do {
-//                    let existingShortcutData = try Data(contentsOf: fileManager.shortcutStorage)
-//                    var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
-//                    decodedData.append(app)
-//                    print(decodedData)
-//                    let encodedData = try? JSONEncoder().encode(decodedData)
-//                    try encodedData?.write(to: fileManager.shortcutStorage)
-//                } catch {
-//                    print(error)
-//                }
-                
                 dismiss()
             } label: {
                 Text("Add App")

@@ -41,16 +41,7 @@ struct VisionDockApp: App {
                         
                         let app = DockApp(id: "shortcuts://\(url.pathComponents[2])", name: shortcutName, type: .shortcut)
                         let fileManager = FBFileManager.init()
-                        do {
-                            let existingShortcutData = try Data(contentsOf: fileManager.shortcutStorage)
-                            var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
-                            decodedData.append(app)
-                            print(decodedData)
-                            let encodedData = try? JSONEncoder().encode(decodedData)
-                            try encodedData?.write(to: fileManager.shortcutStorage)
-                        } catch {
-                            print(error)
-                        }
+                        AppManager.addDockAppToStore(item: app, store: fileManager.shortcutStorage)
                     } else {
                         print("couldn't get shortcut name: " + (url.pathComponents[2].replacingOccurrences(of: "run-shortcut?name=", with: "").removingPercentEncoding)!)
                     }
