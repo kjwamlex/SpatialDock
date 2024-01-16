@@ -42,18 +42,18 @@ struct Settings: View {
                     Label("Shortcuts", systemImage: "dock.rectangle")
                 }
                 .tag(SettingsNavigation.shortcuts)
-                NavigationLink(destination: SettingsMessages()) {
-                    Label("Messages", systemImage: "bubble.left.fill")
-                }
-                
+//                NavigationLink(destination: SettingsMessages()) {
+//                    Label("Messages", systemImage: "bubble.left.fill")
+//                }
+//                .tag(SettingsNavigation.messages)
                 NavigationLink(destination: SettingsSubscription()) {
                     Label("Subscription", systemImage: "rays")
                 }
-                .tag(SettingsNavigation.messages)
-                NavigationLink(destination: SettingsReset()) {
-                    Label("Reset", systemImage: "arrow.counterclockwise")
-                }
-                .tag(SettingsNavigation.reset)
+                .tag(SettingsNavigation.subscription)
+//                NavigationLink(destination: SettingsReset()) {
+//                    Label("Reset", systemImage: "arrow.counterclockwise")
+//                }
+//                .tag(SettingsNavigation.reset)
             }
             .navigationTitle("Settings")
             .toolbar {
