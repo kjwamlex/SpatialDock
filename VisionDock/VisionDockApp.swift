@@ -11,6 +11,7 @@ import SwiftUI
 struct VisionDockApp: App {
     @StateObject var openedSettings = observableBoolean()
     init() {
+        let sc = StoreController.shared
         //enable battery monitoring for battery level in dock
         UIDevice.current.isBatteryMonitoringEnabled = true
         //check if cacheDirectory exists, and if not make it
@@ -55,6 +56,9 @@ struct VisionDockApp: App {
                 .environmentObject(openedSettings)
                 
         }
+        WindowGroup("Products", id: "productsview") {
+            ProductsView()
+        }.windowStyle(.plain).defaultSize(width: 650, height: 1000)
     }
 }
 

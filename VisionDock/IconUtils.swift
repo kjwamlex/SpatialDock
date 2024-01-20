@@ -13,12 +13,11 @@ import SwiftUI
 
 class IconUtils: NSObject {
     //if forceImageRequest is on, the app will send a request to the server even for system apps that are included in the app or cached locally. not on by default because there's really no need for it other than debugging
-    func getIcon(name: String, endpoint: URL = URL(string: "http://localhost:3000")!, forceImageRequest: Bool = false, _ completion: @escaping (Image) -> Void) {
+    func getIcon(name: String, endpoint: URL = URL(string: "http://localhost:3000")!, forceImageRequest: Bool = false) async -> Image {
 //        print("getting icon for \(name)")
         let systemApps:[String] = ["Safari", "Settings", "Files", "Photos"]
         if !forceImageRequest && systemApps.contains(name) {
-            completion(Image(name))
-            return
+            return Image(name)
         }
         var image = Image("NoIcon")
         if !forceImageRequest && checkIfInCache(appName: name.lowercased()) {
@@ -26,53 +25,35 @@ class IconUtils: NSObject {
             let path = self.getCachePath(appName: name)
             let imgData = try? Data(contentsOf: path)
             if imgData == nil {
-                completion(image)
-                return
+                return image
             }
             image = Image(uiImage: UIImage(data: imgData!)!)
-            completion(image)
-            return
+            return image
         }
         var request = URLRequest(url: endpoint.appendingPathComponent("/image"))
         request.httpMethod = "POST"
         request.httpBody = try! JSONEncoder().encode(IconRequest(name: name))
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        URLSession.shared.dataTask(with: request) { data, res, err in
-            if err != nil {
-                print("there was an error getting \(name) icon: \(err!.localizedDescription)")
-                completion(image)
-                return
-            }
-            if let data = data {
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
                 let response = try! JSONDecoder().decode(IconResponse.self, from: data)
                 if !response.found {
-//                    print("No image found for \(name). using default")
-                    completion(image)
-                    return
+                    print("No image found for \(name). using default")
+                    return image
                 }
-//                print("Got image for \(name)! using it!")
+                print("Got image for \(name)! using it!")
                 let imgData = Data(base64Encoded: response.image!)!
                 image = Image(uiImage: UIImage(data: imgData)!)
                 
                 let cacheDirectory = self.getCachePath(appName: name.lowercased())
-//                print("writing \(name) to cache at \(cacheDirectory.absoluteString)")
+                print("writing \(name) to cache at \(cacheDirectory.absoluteString)")
                 self.addDataToCache(name: name.lowercased(), data: imgData)
-//                do {
-//                    do {
-//                        try FileManager.default.removeItem(at: cacheDirectory)
-//                    } catch {
-//                        print("error removing \(name).png: \(error)")
-//                    }
-//                    try imgData.write(to: cacheDirectory, options: .noFileProtection)
-////                    print("successfully wrote \(name) to cache at \(cacheDirectory.absoluteString)")
-//                } catch {
-//                    print("there was an error writing \(name) to cache: \(error)")
-//                }
-            }
-            completion(image)
-        }.resume()
+            return image
+        } catch {
+            print("error getting icon: \(error)")
+            return Image("NoIcon")
+        }
     }
     
     func addDataToCache(name: String, data: Data) {

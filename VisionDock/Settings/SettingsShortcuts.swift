@@ -18,7 +18,7 @@ struct SettingsShortcuts: View {
     // 6. Add it to the app
     
     // We can look into "Add shortcuts" in "Launcher" app on the App Store.
-    
+    @Environment(\.openWindow) var openWindow
     @State private var showSystemApps = false
     @State private var showShortcuts = false
     @State private var addAppView = false
@@ -39,11 +39,28 @@ struct SettingsShortcuts: View {
                 Section {
                     ForEach(itemsInDock, id: \.self) { item in
                             HStack {
-                                Image("Photos")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width:40, height: 40)
-                                    
+//                                Image("Photos")
+//                                    .resizable()
+//                                    .aspectRatio(contentMode: .fit)
+//                                    .frame(width:40, height: 40)
+                                AsyncView {
+                                    await IconUtils().getIcon(name: item.name)
+                                } content: { phase in
+                                    switch phase {
+                                    case .loading:
+                                        ProgressView().frame(width: 40, height: 40)
+                                    case .success(value: let value):
+                                        value
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width:40, height: 40)
+                                    case .failure(error: let error):
+                                        Image("NoIcon").resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width:40, height: 40)
+                                    }
+                                }
+
                                 Text(item.name)
 
                             }.contextMenu {
@@ -105,12 +122,28 @@ struct SettingsShortcuts: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     Button(action: {
-                        showShortcuts.toggle()
+                        if StoreController.shared.purchased.isEmpty {
+                            if (AppManager.getAppsFromStore().count - 4) < 4 {
+                                showShortcuts.toggle()
+                            } else {
+                                openWindow(id: "productsview")
+                            }
+                        } else {
+                            showShortcuts.toggle()
+                        }
                     }, label: {
                         Text("\(Image(systemName: "curlybraces")) Add Shortcut") //TODO: maybe find a better icon for this?
                     })
                     Button(action: {
-                        addAppView.toggle()
+                        if StoreController.shared.purchased.isEmpty {
+                            if (AppManager.getAppsFromStore().count - 4) < 4 {
+                                addAppView.toggle()
+                            } else {
+                                openWindow(id: "productsview")
+                            }
+                        } else {
+                            addAppView.toggle()
+                        }
                     }, label: {
                         Text("\(Image(systemName: "app.badge")) Add App") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
                     })
@@ -214,10 +247,12 @@ struct AddNewAppModal: View {
                 withAnimation {
                     loading = true
                 }
-                IconUtils().getIcon(name: appName) { img in
-                    withAnimation {
-                        appIcon = img
-                        loading = false
+                Task {
+                    appIcon = await IconUtils().getIcon(name: appName)
+                    DispatchQueue.main.async {
+                        withAnimation {
+                            loading = false
+                        }
                     }
                 }
             }
@@ -312,10 +347,12 @@ struct EditShortcutView: View {
                 withAnimation {
                     loading = true
                 }
-                IconUtils().getIcon(name: item.name) { img in
-                    withAnimation {
-                        appIcon = img
-                        loading = false
+                Task {
+                    appIcon = await IconUtils().getIcon(name: item.name)
+                    DispatchQueue.main.async {
+                        withAnimation {
+                            loading = false
+                        }
                     }
                 }
             }
@@ -328,4 +365,59 @@ struct EditShortcutView: View {
             }
         }
     }
+}
+
+public struct AsyncView<T>: View {
+    
+    public enum AsyncLoadingPhase {
+        /// No value is loaded.
+        case loading
+        /// A value successfully loaded.
+        case success(value: T)
+        /// A value failed to load with an error.
+        case failure(error: Error?)
+    }
+    
+    @State private var task: Task<Void, Never>? = nil
+    @State private var phase: AsyncLoadingPhase = .loading
+    var priority: TaskPriority = .userInitiated
+    let fetch: () async throws -> T
+    let content: (AsyncLoadingPhase) -> any View
+        
+    public var body: some View {
+        if #available(iOS 15.0, *) {
+            AnyView(content(phase))
+                .task(priority: priority) {
+                    await performFetchRequestIfNeeded()
+                }
+        } else {
+            AnyView(content(phase))
+                .onAppear {
+                    task = Task(priority: priority) {
+                        await performFetchRequestIfNeeded()
+                    }
+                }
+                .onDisappear {
+                    task?.cancel()
+                }
+        }
+    }
+    
+    private func performFetchRequestIfNeeded() async {
+        // This will be called every time the view appears.
+        // If we already performed a successful fetch, there's no need to refetch.
+        switch phase {
+        case .loading, .failure:
+            break
+        case .success:
+            return
+        }
+        
+        do {
+            phase = .success(value: try await fetch())
+        } catch {
+            phase = .failure(error: error)
+        }
+    }
+    
 }
