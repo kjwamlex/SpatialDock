@@ -1,8 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "visiondock icon.png",
-      "idiom" : "reality",
+      "filename" : "VisionDockLayer_2.png",
+      "idiom" : "vision",
       "scale" : "2x"
     }
   ],

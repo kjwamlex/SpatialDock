@@ -107,12 +107,12 @@ struct SettingsShortcuts: View {
                     Button(action: {
                         showShortcuts.toggle()
                     }, label: {
-                        Text("\(Image(systemName: "curlybraces")) Add Shortcut") //TODO: maybe find a better icon for this?
+                        Text("\(Image(systemName: "curlybraces")) Add from imported Shortcuts") //TODO: maybe find a better icon for this?
                     })
                     Button(action: {
                         addAppView.toggle()
                     }, label: {
-                        Text("\(Image(systemName: "app.badge")) Add App") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
+                        Text("\(Image(systemName: "app.badge")) Import Shortcuts") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
                     })
                 } label: {
                     Image(systemName: "plus")
@@ -198,11 +198,11 @@ struct AddNewAppModal: View {
             .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             Spacer()
             Button {
-                var app = DockApp(id: appLink, name: appName, type: .app)
+                let app = DockApp(id: appLink, name: appName, type: .app)
                 if let data = imgData {
                     IconUtils().addDataToCache(name: appName.lowercased(), data: data)
                 }
-                var fileManager = FBFileManager.init()
+                let fileManager = FBFileManager.init()
                 AppManager.addDockAppToStore(item: app, store: fileManager.shortcutStorage)
                 dismiss()
             } label: {

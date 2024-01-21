@@ -52,6 +52,7 @@ class Model: ObservableObject {
         NotificationCenter.default.addObserver(self, selector: #selector(self.receivedRefreshNotification(notification:)), name: Notification.Name("reloadDockItems"), object: nil)
                                                
         let dockSavedPath = fileManager.userDockConfigJSON
+        print("Getting Dock saved Data")
         print(dockSavedPath)
         if !fileManager.fileManager.fileExists(atPath: dockSavedPath.relativePath) {
             print("file does not exist")
@@ -92,10 +93,10 @@ class Model: ObservableObject {
         do {
             let savedData = try Data(contentsOf: dockSavedPath)
             let decodedData = try JSONDecoder().decode([DockApp].self, from: savedData)
-            print(decodedData)
+            //print(decodedData)
             data = decodedData
-            print(systemApps)
-            print(data)
+            //print(systemApps)
+            //print(data)
         } catch {
             print(error)
         }
@@ -114,6 +115,7 @@ struct DemoDragRelocateView: View {
         //ScrollView {
            LazyHGrid(rows: model.columns, spacing: 8) {
                 ForEach(model.data) { app in
+                    
                     DockItemView(appURL: app.id, appName: app.name, editModeInBound: $editButton, modelInUse: model, dockApp: app)
                         .onDrag {
                             if !editButton {

@@ -14,7 +14,7 @@ class AppManager {
             let existingShortcutData = try Data(contentsOf: store)
             var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
             decodedData.append(item)
-//            print(decodedData)
+            print(decodedData)
             let encodedData = try? JSONEncoder().encode(decodedData)
             try encodedData?.write(to: store)
         } catch {

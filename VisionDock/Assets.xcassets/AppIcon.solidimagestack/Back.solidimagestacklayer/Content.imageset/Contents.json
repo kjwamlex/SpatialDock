@@ -1,8 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "background icon.png",
-      "idiom" : "reality",
+      "filename" : "VIsionDockBackground.png",
+      "idiom" : "vision",
       "scale" : "2x"
     }
   ],
