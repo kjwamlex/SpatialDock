@@ -35,4 +35,15 @@ class AppManager {
             print(error)
         }
     }
+    static func getAppsFromStore() -> [DockApp] {
+        let dockSavedPath = FBFileManager().userDockConfigJSON
+        do {
+            let savedData = try Data(contentsOf: dockSavedPath)
+            let decodedData = try JSONDecoder().decode([DockApp].self, from: savedData)
+            return decodedData
+        } catch {
+            print(error)
+            return []
+        }
+    }
 }

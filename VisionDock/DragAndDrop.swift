@@ -251,12 +251,12 @@ struct DockItemView: View {
             }
             
         }.onAppear {
-            IconUtils().getIcon(name: appName) { img in
-                appImage = img
+            Task {
+                appImage = await IconUtils().getIcon(name: appName)
             }
         }.onChange(of: modelInUse.data) { oldValue, newValue in
-            IconUtils().getIcon(name: appName) { img in
-                appImage = img
+            Task {
+                appImage = await IconUtils().getIcon(name: appName)
             }
         }
     }
