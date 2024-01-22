@@ -9,12 +9,14 @@ import SwiftUI
 
 enum SettingsNavigation {
     case about
+    case manageDock
+    case manageShortcuts
+    case manageApps
     case MoreFeatures
     case subscription
-    case manageDock
     case messages
     case reset
-    case manageShortcuts
+    
 }
 
 struct Settings: View {
@@ -35,18 +37,23 @@ struct Settings: View {
                     Label("About SpatialDock", systemImage: "info.circle")
                 }
                 .tag(SettingsNavigation.about)
-                NavigationLink(destination: SettingsManageShortcuts()) {
-                    Label("Manage Shortcuts", systemImage: "plus")
-                }
-                .tag(SettingsNavigation.manageShortcuts)
-                NavigationLink(destination: SettingsFeatures()) {
-                    Label("Widgets", systemImage: "bubbles.and.sparkles.fill")
-                }
-                .tag(SettingsNavigation.MoreFeatures)
                 NavigationLink(destination: SettingsManageDock()) {
                     Label("Manage Dock", systemImage: "dock.rectangle")
                 }
                 .tag(SettingsNavigation.manageDock)
+                NavigationLink(destination: SettingsManageShortcuts()) {
+                    Label("Manage Shortcuts", systemImage: "plus")
+                }
+                .tag(SettingsNavigation.manageShortcuts)
+                NavigationLink(destination: SettingsManageApps()) {
+                    Label("Manage Apps", systemImage: "plus")
+                }
+                .tag(SettingsNavigation.manageApps)
+                NavigationLink(destination: SettingsFeatures()) {
+                    Label("Widgets", systemImage: "bubbles.and.sparkles.fill")
+                }
+                .tag(SettingsNavigation.MoreFeatures)
+                
 //                NavigationLink(destination: SettingsMessages()) {
 //                    Label("Messages", systemImage: "bubble.left.fill")
 //                }
