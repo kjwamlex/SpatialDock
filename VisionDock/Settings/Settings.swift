@@ -11,9 +11,10 @@ enum SettingsNavigation {
     case about
     case MoreFeatures
     case subscription
-    case shortcuts
+    case manageDock
     case messages
     case reset
+    case manageShortcuts
 }
 
 struct Settings: View {
@@ -34,14 +35,18 @@ struct Settings: View {
                     Label("About SpatialDock", systemImage: "info.circle")
                 }
                 .tag(SettingsNavigation.about)
+                NavigationLink(destination: SettingsManageShortcuts()) {
+                    Label("Manage Shortcuts", systemImage: "plus")
+                }
+                .tag(SettingsNavigation.manageShortcuts)
                 NavigationLink(destination: SettingsFeatures()) {
-                    Label("More Features", systemImage: "bubbles.and.sparkles.fill")
+                    Label("Widgets", systemImage: "bubbles.and.sparkles.fill")
                 }
                 .tag(SettingsNavigation.MoreFeatures)
-                NavigationLink(destination: SettingsShortcuts()) {
-                    Label("Shortcuts", systemImage: "dock.rectangle")
+                NavigationLink(destination: SettingsManageDock()) {
+                    Label("Manage Dock", systemImage: "dock.rectangle")
                 }
-                .tag(SettingsNavigation.shortcuts)
+                .tag(SettingsNavigation.manageDock)
 //                NavigationLink(destination: SettingsMessages()) {
 //                    Label("Messages", systemImage: "bubble.left.fill")
 //                }

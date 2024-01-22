@@ -1,5 +1,5 @@
 //
-//  SettingsShortcuts.swift
+//  SettingsManageDock.swift
 //  infiniteX3I
 //
 //  Created by Joonwoo KIM on 2023-07-01.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 import PhotosUI
-struct SettingsShortcuts: View {
+struct SettingsManageDock: View {
     
     // Add shortcut through Shortcuts app.
     // 1. Add a shortcut that copies shortcut URL into the app
@@ -132,7 +132,7 @@ struct SettingsShortcuts: View {
                             showShortcuts.toggle()
                         }
                     }, label: {
-                        Text("\(Image(systemName: "curlybraces")) Add from imported Shortcuts") //TODO: maybe find a better icon for this?
+                        Text("\(Image(systemName: "curlybraces")) Add from imported Shortcuts/Apps") //TODO: maybe find a better icon for this?
                     })
                     Button(action: {
                         if StoreController.shared.purchased.isEmpty {
@@ -145,7 +145,7 @@ struct SettingsShortcuts: View {
                             addAppView.toggle()
                         }
                     }, label: {
-                        Text("\(Image(systemName: "app.badge")) Import Shortcuts") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
+                        Text("\(Image(systemName: "app.badge")) Add Apps using URL") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
                     })
                 } label: {
                     Image(systemName: "plus")
@@ -167,7 +167,7 @@ struct SettingsShortcuts: View {
 }
 
 #Preview {
-    SettingsShortcuts()
+    SettingsManageDock()
 }
 struct AddNewAppModal: View {
     @State var appName: String = ""
