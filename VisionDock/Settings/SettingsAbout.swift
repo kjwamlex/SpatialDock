@@ -25,11 +25,11 @@ struct SettingsAbout: View {
         VStack {
             Group {
                 HStack(alignment: .top) {
-                    Image("Safari")
+                    Image("AppIconOneLayer")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 130, height: 130)
-                        .cornerRadius(25)
+                        .cornerRadius(65)
                     VStack(alignment: .leading) {
                         Text("SpatialDock")
                             .font(.extraLargeTitle)
@@ -46,7 +46,7 @@ struct SettingsAbout: View {
                 Section {
                     SettingsGroupRow(title: "Lead Developer", detail:"Joonwoo Kim (@iOS_App_Dev)", link: "https://twitter.com/iOS_App_Dev")
                     SettingsGroupRow(title: "Developer", detail: "Payton (@paytondev)", link: "https://twitter.com/paytondev")
-                    
+                    SettingsGroupRow(title: "Product Marketing", detail: "Maxim Larin (@Maxim_Lrn)", link: "https://twitter.com/Maxim_Lrn")
                 } header: {
                     Text("Developers")
                 }
