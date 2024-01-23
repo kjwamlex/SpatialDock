@@ -117,7 +117,7 @@ struct SettingsManageDock: View {
         }, content: {
             EditShortcutView(item: $itemBeingEdited)
         })
-        .navigationTitle("Shortcuts")
+        .navigationTitle("Manage Dock")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
@@ -181,8 +181,9 @@ struct AddNewAppModal: View {
         VStack {
             HStack {
                 Spacer()
-                Text("Add an app to InfiniteX3I")
+                Text("Add an App to VisionDock with URL")
                     .font(.title)
+                    .multilineTextAlignment(.center)
                 .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
                 Spacer()
                 //doing it this way because Toolbar make the view too tall
@@ -198,7 +199,7 @@ struct AddNewAppModal: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text("App Name")
-                        Text("Can be anything")
+                        Text("Write the name of the app.")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }

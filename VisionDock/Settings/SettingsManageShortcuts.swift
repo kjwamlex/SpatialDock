@@ -59,7 +59,9 @@ struct SettingsManageShortcuts: View {
                 .environment(\.editMode, $editMode)
                 
                 
-            }.onAppear() {
+            }
+            .navigationTitle("Manage Shortcuts")
+            .onAppear() {
                 do {
                     let data = try Data(contentsOf: fileManager.shortcutStorage)
                     let decodedData = try JSONDecoder().decode([DockApp].self, from: data)
