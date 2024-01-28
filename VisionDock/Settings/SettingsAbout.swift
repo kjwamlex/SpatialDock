@@ -19,7 +19,8 @@ struct SettingsAbout: View {
                                 SettingsOption(settingsOption: "hello"),
                                 SettingsOption(settingsOption: "hello")]
     @State private var optionExample = true
-    
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismissWindow) private var dismissWindow
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     var body: some View {
         VStack {
@@ -36,12 +37,14 @@ struct SettingsAbout: View {
                             .fontWeight(.bold)
                         HStack {
                             Text("Version 1.0")
-                                .font(.title3)
+                                .font(.largeTitle)
                         }
+                        
                     }.padding()
                     Spacer()
                 }.padding(20.0)
             }
+            
             List {
                 Section {
                     SettingsGroupRow(title: "Lead Developer", detail:"Joonwoo Kim (@iOS_App_Dev)", link: "https://twitter.com/iOS_App_Dev")
@@ -53,6 +56,17 @@ struct SettingsAbout: View {
             }
         }
         .navigationTitle("About")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Open Dock") {
+                    withTransaction(\.dismissBehavior, .destructive) {
+                        dismissWindow(id: "dock")
+                    }
+                    openWindow(id: "dock")
+                }
+
+            }
+        }
     }
 }
 

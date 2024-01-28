@@ -26,7 +26,7 @@ struct VisionDockApp: App {
     @State var editingShortcut = false
     @State var shortcutToEdit: DockApp = DockApp(id: "", name: "", type: .app)
     var body: some Scene {
-        WindowGroup {
+        WindowGroup("Dock", id: "dock") {
             ContentView()
                 .frame(minWidth: 600, minHeight: 150)
                 .onOpenURL(perform: { url in
