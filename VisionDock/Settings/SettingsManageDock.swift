@@ -20,8 +20,10 @@ struct SettingsManageDock: View {
     // We can look into "Add shortcuts" in "Launcher" app on the App Store.
     @Environment(\.openWindow) var openWindow
     @State private var showSystemApps = false
-    @State private var showShortcuts = false
+    @State private var showAvailableShortcuts = false
+    @State private var showAvailableApps = false
     @State private var addAppView = false
+    @State private var selectedApps: [DockApp] = []
     @State private var selectedShortcuts: [DockApp] = []
     @State private var itemsInDock: [DockApp] = []
     @State var editMode: EditMode = .active
@@ -106,7 +108,11 @@ struct SettingsManageDock: View {
         .onAppear {
             refreshList()
         }
-        .sheet(isPresented: $showShortcuts) {
+        .sheet(isPresented: $showAvailableApps) {
+            SettingsAvailableApps(selectedShortcuts: $selectedApps)
+                .frame(width: 500, height: 500)
+        }
+        .sheet(isPresented: $showAvailableShortcuts) {
             SettingsAvailableShortcuts(selectedShortcuts: $selectedShortcuts)
                 .frame(width: 500, height: 500)
         }.sheet(isPresented: $addAppView, content: {
@@ -124,28 +130,28 @@ struct SettingsManageDock: View {
                     Button(action: {
                         if StoreController.shared.purchased.isEmpty {
                             if (AppManager.getAppsFromStore().count - 4) < 4 {
-                                showShortcuts.toggle()
+                                showAvailableShortcuts.toggle()
                             } else {
                                 openWindow(id: "productsview")
                             }
                         } else {
-                            showShortcuts.toggle()
+                            showAvailableShortcuts.toggle()
                         }
                     }, label: {
-                        Text("\(Image(systemName: "curlybraces")) Add from imported Shortcuts/Apps") //TODO: maybe find a better icon for this?
+                        Text("\(Image(systemName: "curlybraces")) Add Imported Shortcuts") //TODO: maybe find a better icon for this?
                     })
                     Button(action: {
                         if StoreController.shared.purchased.isEmpty {
                             if (AppManager.getAppsFromStore().count - 4) < 4 {
-                                addAppView.toggle()
+                                showAvailableApps.toggle()
                             } else {
                                 openWindow(id: "productsview")
                             }
                         } else {
-                            addAppView.toggle()
+                            showAvailableApps.toggle()
                         }
                     }, label: {
-                        Text("\(Image(systemName: "app.badge")) Add Apps using URL") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
+                        Text("\(Image(systemName: "app.badge")) Add Added Apps") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
                     })
                 } label: {
                     Image(systemName: "plus")

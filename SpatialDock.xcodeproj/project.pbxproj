@@ -19,6 +19,7 @@
 		518747882A77821300109E11 /* SettingsAvailableShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518747872A77821300109E11 /* SettingsAvailableShortcuts.swift */; };
 		518C0D462B5EBB710085308C /* SettingsManageShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518C0D452B5EBB710085308C /* SettingsManageShortcuts.swift */; };
 		518C0D482B5EC1F00085308C /* SettingsManageApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518C0D472B5EC1F00085308C /* SettingsManageApps.swift */; };
+		518C0D4A2B6605E00085308C /* SettingsAvailableApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518C0D492B6605E00085308C /* SettingsAvailableApps.swift */; };
 		519D47EC2A50897C00928EF8 /* SettingsAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47EB2A50897C00928EF8 /* SettingsAbout.swift */; };
 		519D47EF2A509B7000928EF8 /* SettingsFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47EE2A509B7000928EF8 /* SettingsFeatures.swift */; };
 		519D47F32A509B9500928EF8 /* SettingsManageDock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47F22A509B9500928EF8 /* SettingsManageDock.swift */; };
@@ -73,6 +74,7 @@
 		518747872A77821300109E11 /* SettingsAvailableShortcuts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsAvailableShortcuts.swift; path = VisionDock/SettingsAvailableShortcuts.swift; sourceTree = SOURCE_ROOT; };
 		518C0D452B5EBB710085308C /* SettingsManageShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManageShortcuts.swift; sourceTree = "<group>"; };
 		518C0D472B5EC1F00085308C /* SettingsManageApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManageApps.swift; sourceTree = "<group>"; };
+		518C0D492B6605E00085308C /* SettingsAvailableApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAvailableApps.swift; sourceTree = "<group>"; };
 		519D47EB2A50897C00928EF8 /* SettingsAbout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAbout.swift; sourceTree = "<group>"; };
 		519D47EE2A509B7000928EF8 /* SettingsFeatures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFeatures.swift; sourceTree = "<group>"; };
 		519D47F22A509B9500928EF8 /* SettingsManageDock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManageDock.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				518C0D472B5EC1F00085308C /* SettingsManageApps.swift */,
 				519D47EE2A509B7000928EF8 /* SettingsFeatures.swift */,
 				518747872A77821300109E11 /* SettingsAvailableShortcuts.swift */,
+				518C0D492B6605E00085308C /* SettingsAvailableApps.swift */,
 				519D47F42A509B9F00928EF8 /* SettingsMessages.swift */,
 				51D5FAA42A70E36600006225 /* SettingsSubscription.swift */,
 				519D47F62A509BC400928EF8 /* SettingsReset.swift */,
@@ -377,6 +380,7 @@
 				518C0D462B5EBB710085308C /* SettingsManageShortcuts.swift in Sources */,
 				E9775BCE2B5C1EFF002B333A /* StoreController.swift in Sources */,
 				51F2103B2A4E09FE0046D66B /* TimeManagement.swift in Sources */,
+				518C0D4A2B6605E00085308C /* SettingsAvailableApps.swift in Sources */,
 				519D47F32A509B9500928EF8 /* SettingsManageDock.swift in Sources */,
 				518C0D482B5EC1F00085308C /* SettingsManageApps.swift in Sources */,
 				510C094B2A4CFD4B001B26A0 /* ContentView.swift in Sources */,

@@ -1,9 +1,11 @@
 //
-//  SettingsAvailableApps.swift
+//  SettingsAvailableShortcuts.swift
 //  SpatialDock
 //
-//  Created by Joonwoo KIM on 2023-07-31.
+//  Created by Joonwoo KIM on 2024-01-27.
 //
+
+import Foundation
 
 
 /*
@@ -16,11 +18,11 @@
 
 import SwiftUI
 
-struct SettingsAvailableShortcuts: View {
+struct SettingsAvailableApps: View {
     
     @Environment(\.dismiss) var dismiss
     @Binding var selectedShortcuts:[DockApp]
-    @State var listOfShortcuts:[DockApp] = []
+    @State var listOfApps:[DockApp] = []
     @State private var shortcutsSelection = Set<DockApp>()
     @State private var selection: String?
     let fileManager = FBFileManager.init()
@@ -29,8 +31,8 @@ struct SettingsAvailableShortcuts: View {
         NavigationView {
             VStack {
                 Spacer()
-                List(listOfShortcuts, id: \.self, selection: $shortcutsSelection) { item in
-                    if item.type == .shortcut {
+                List(listOfApps, id: \.self, selection: $shortcutsSelection) { item in
+                    if item.type == .app {
                         HStack {
                             AsyncView {
                                 await IconUtils().getIcon(name: item.name)
@@ -59,12 +61,12 @@ struct SettingsAvailableShortcuts: View {
                 do {
                     let data = try Data(contentsOf: fileManager.shortcutStorage)
                     let decodedData = try JSONDecoder().decode([DockApp].self, from: data)
-                    listOfShortcuts = decodedData
+                    listOfApps = decodedData
                 } catch {
                     
                 }
             }
-            .navigationTitle("Add Shortcuts")
+            .navigationTitle("Add Apps")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
