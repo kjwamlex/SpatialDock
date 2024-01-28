@@ -17,7 +17,7 @@ struct SettingsSubscription: View {
                 Section("Membership Details") {
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("VisionDock Pro")
+                            Text("SpatialDock Pro")
                             Text("\(storeController.purchased[0].replacingOccurrences(of: "com.exDevelopments.SpatialDock.pro.", with: ""))").foregroundStyle(.secondary)
                         }
                         Spacer()
@@ -34,7 +34,7 @@ struct SettingsSubscription: View {
                         openWindow(id: "productsview")
                     }, label: {
                         HStack {
-                            Text("Purchase VisionDock \(Text("Pro").bold())")
+                            Text("Purchase SpatialDock \(Text("Pro").bold())")
                             Spacer()
                             Image(systemName: "wand.and.stars")
                         }

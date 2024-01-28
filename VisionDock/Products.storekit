@@ -78,8 +78,8 @@
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "Get the best from VisionDock",
-              "displayName" : "VisionDock Pro - Monthly",
+              "description" : "Get the best from SpatialDock.",
+              "displayName" : "SpatialDock Pro - Monthly",
               "locale" : "en_US"
             }
           ],
@@ -103,8 +103,8 @@
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "Get the best from VisionDock",
-              "displayName" : "VisionDock Pro - Yearly",
+              "description" : "Get the best from SpatialDock.",
+              "displayName" : "SpatialDock Pro - Yearly",
               "locale" : "en_US"
             }
           ],

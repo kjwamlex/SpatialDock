@@ -183,7 +183,7 @@ struct AddNewAppModal: View {
         VStack {
             HStack {
                 Spacer()
-                Text("Add an App to VisionDock with URL")
+                Text("Add an App to SpatialDock with URL")
                     .font(.title)
                     .multilineTextAlignment(.center)
                 .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)

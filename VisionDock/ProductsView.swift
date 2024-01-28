@@ -32,7 +32,7 @@ struct ProductsView: View {
                 
             }
             HStack(spacing: 4) {
-                Text("VisionDock").font(.largeTitle).fontWeight(.semibold)
+                Text("SpatialDock").font(.largeTitle).fontWeight(.semibold)
                 liveText().font(.largeTitle)
             }.padding().glassBackgroundEffect()
             Divider()
@@ -120,7 +120,7 @@ struct ProductsView: View {
                 RoundedRectangle(cornerRadius: 30.0).stroke(.linearGradient(colors: [Color.purple, Color.blue], startPoint: .topLeading, endPoint: .bottomTrailing), style: StrokeStyle(lineWidth: 4)).hueRotation(inverted ? -gradientRotation : gradientRotation).opacity(0.6)
             )
             VStack(alignment: .leading) {
-                Text(prod.displayName.replacingOccurrences(of: "VisionDock", with: "")).bold()
+                Text(prod.displayName.replacingOccurrences(of: "SpatialDock", with: "")).bold()
                 Spacer()
                 HStack {
                     Text("\(prod.displayPrice)/\(prod.displayName.contains("Monthly") ? "month" : "year")")

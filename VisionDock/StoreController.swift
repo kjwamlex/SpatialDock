@@ -17,7 +17,7 @@ class StoreController: ObservableObject {
         Task { @MainActor in
             do {
                 products = try await Product.products(for: ["com.exDevelopments.SpatialDock.pro.monthly", "com.exDevelopments.SpatialDock.pro.yearly"])
-                print("got \(products.count) VisionDock Pro products")
+                print("got \(products.count) SpatialDock Pro products")
             } catch {
                 print("Error fetching products: \(error)")
             }
