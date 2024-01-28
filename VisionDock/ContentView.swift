@@ -28,7 +28,6 @@ struct ContentView: View {
     @StateObject private var model = Model()
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismissWindow) private var dismissWindow
-    @EnvironmentObject var openedSettings: observableBoolean
     
     var body: some View {
         VStack {
