@@ -20,18 +20,12 @@ enum SettingsNavigation {
 }
 
 struct Settings: View {
-    @EnvironmentObject var openedSettings: observableBoolean
     @Environment(\.dismiss) var dismiss
     @State var selectedNavigation: Set<SettingsNavigation> = [.about]
     
     var body: some View {
         
         NavigationSplitView {
-//            Button("Close Settings") {
-//                openedSettings.boolean = false
-//                dismiss()
-//            }
-//            
             List(selection: $selectedNavigation) {
                 NavigationLink(destination: SettingsAbout()) {
                     Label("About SpatialDock", systemImage: "info.circle")

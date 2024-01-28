@@ -9,7 +9,6 @@ import SwiftUI
 
 @main
 struct VisionDockApp: App {
-    @StateObject var openedSettings = observableBoolean()
     init() {
         let sc = StoreController.shared
         //enable battery monitoring for battery level in dock
@@ -23,10 +22,12 @@ struct VisionDockApp: App {
             
         }
     }
+    @Environment(\.openWindow) var openWindow
+    @State var editingShortcut = false
+    @State var shortcutToEdit: DockApp = DockApp(id: "", name: "", type: .app)
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(openedSettings)
                 .frame(minWidth: 600, minHeight: 150)
                 .onOpenURL(perform: { url in
                     //the url contains the shortcut
@@ -43,10 +44,14 @@ struct VisionDockApp: App {
                         let app = DockApp(id: "shortcuts://\(url.pathComponents[2])", name: shortcutName, type: .shortcut)
                         let fileManager = FBFileManager.init()
                         AppManager.addDockAppToStore(item: app, store: fileManager.shortcutStorage)
+                        shortcutToEdit = app
+                        editingShortcut = true
                     } else {
                         print("couldn't get shortcut name: " + (url.pathComponents[2].replacingOccurrences(of: "run-shortcut?name=", with: "").removingPercentEncoding)!)
                     }
                     
+                }).sheet(isPresented: $editingShortcut, content: {
+                    EditShortcutView(item: $shortcutToEdit)
                 })
         }
         .windowStyle(.plain)
@@ -54,15 +59,9 @@ struct VisionDockApp: App {
         
         WindowGroup("Settings", id: "settings") {
             Settings()
-                .environmentObject(openedSettings)
-                
         }
         WindowGroup("Products", id: "productsview") {
             ProductsView()
         }.windowStyle(.plain).defaultSize(width: 650, height: 1000)
     }
-}
-
-class observableBoolean: ObservableObject {
-    @Published var boolean = false
 }
