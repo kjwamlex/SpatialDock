@@ -41,10 +41,6 @@ struct SettingsManageDock: View {
                 Section {
                     ForEach(itemsInDock, id: \.self) { item in
                             HStack {
-//                                Image("Photos")
-//                                    .resizable()
-//                                    .aspectRatio(contentMode: .fit)
-//                                    .frame(width:40, height: 40)
                                 AsyncView {
                                     await IconUtils().getIcon(name: item.name)
                                 } content: { phase in
@@ -97,7 +93,7 @@ struct SettingsManageDock: View {
                 } header: {
                     Text("Added Shortcuts and Apps in Dock")
                 } footer: {
-                    Text("To add more shortcuts or Apps, please add more by pressing + button at top right corner.")
+                    Text("To add more shortcuts or Apps, please add more through + button at top right corner.\nTo change icon of an app or shortcut, long pinch while staring at an app and tap \"edit\".")
                 }
             }
             .environment(\.editMode, $editMode)//.frame(minHeight: (minRowHeight * 6) + (3 * listHeaderHeight!))
