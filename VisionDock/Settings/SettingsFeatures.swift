@@ -24,16 +24,19 @@ struct SettingsFeatures: View {
     var body: some View {
         VStack {
             List {
-                
-                ForEach(widgets, id: \.self) { item in
-                    HStack {
-                        WidgetToggle(widgetID: item)
+                Section {
+                    ForEach(widgets, id: \.self) { item in
+                        HStack {
+                            WidgetToggle(widgetID: item)
+                        }
                     }
-                }
-                .onMove { from, to in
-                    widgets.move(fromOffsets: from, toOffset: to)
-                    UserDefaults.standard.set(widgets, forKey: "widgetOrder")
-                    NotificationCenter.default.post(name: NSNotification.Name("refreshWidget"), object: nil, userInfo: nil)
+                    .onMove { from, to in
+                        widgets.move(fromOffsets: from, toOffset: to)
+                        UserDefaults.standard.set(widgets, forKey: "widgetOrder")
+                        NotificationCenter.default.post(name: NSNotification.Name("refreshWidget"), object: nil, userInfo: nil)
+                    }
+                } footer: {
+                    Text("More Widgets are coming in the future updates.")
                 }
             }
             .environment(\.editMode, $editMode)

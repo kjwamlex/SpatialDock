@@ -23,26 +23,40 @@ struct SettingsManageApps: View {
                     ForEach(listOfApps, id: \.self) { item in
                         if item.type == .shortcut {
                             HStack {
+                                AsyncView {
+                                    await IconUtils().getIcon(name: item.name)
+                                } content: { phase in
+                                    switch phase {
+                                    case .loading:
+                                        ProgressView().frame(width: 40, height: 40)
+                                    case .success(value: let value):
+                                        value
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width:40, height: 40)
+                                    case .failure(error: let error):
+                                        Image("NoIcon").resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width:40, height: 40)
+                                    }
+                                }
                                 Text(item.name)
-                            }.contextMenu {
-                                //                                Button("Edit") {
-                                //                                    itemBeingEdited = item
-                                //                                    editingShortcutView.toggle()
-                                //                                }
                             }
                         }
                         
                     }
                     .onDelete { offset in
-                        //                            listOfShortcuts.remove(atOffsets: offset)
-                        //                            do {
-                        //                                let encodedData = try? JSONEncoder().encode(listOfShortcuts)
-                        //                                try encodedData?.write(to: fileManager.shortcutStorage)
-                        //                                NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
-                        //                            } catch {
-                        //                                print(error)
-                        //                            }
-                        //                            NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
+                        print(listOfApps)
+                        print(offset)
+                        listOfApps.remove(atOffsets: offset)
+                        print(listOfApps)
+                        do {
+                            let encodedData = try? JSONEncoder().encode(listOfApps)
+                            try encodedData?.write(to: fileManager.shortcutStorage)
+                            NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
+                        } catch {
+                            print(error)
+                        }
                     }
                 } header: {
                     Text("Added Apps")

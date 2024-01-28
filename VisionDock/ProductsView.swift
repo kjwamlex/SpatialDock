@@ -29,7 +29,7 @@ struct ProductsView: View {
                 } label: {
                     Text("Cancel")
                 }.padding().glassBackgroundEffect()
-
+                
             }
             HStack(spacing: 4) {
                 Text("VisionDock").font(.largeTitle).fontWeight(.semibold)
@@ -68,7 +68,7 @@ struct ProductsView: View {
                                 switch thing {
                                 case .verified(let prod):
                                     storeController.purchased.append(prod.productID)
-                                        dismiss()
+                                    dismiss()
                                 case .unverified(_, _):
                                     break;
                                 }
@@ -99,14 +99,14 @@ struct ProductsView: View {
                 print("go for change")
             }
         }.onReceive(featuresTimer) { _ in
-                withAnimation {
-                    if index < (upsellCount - 1) {
-                        index += 1
-                    } else {
-                        index = 0
-                    }
-                    print("index changed \(index)")
+            withAnimation {
+                if index < (upsellCount - 1) {
+                    index += 1
+                } else {
+                    index = 0
                 }
+                print("index changed \(index)")
+            }
         }
     }
     @ViewBuilder
@@ -152,7 +152,7 @@ struct StrokeText: View {
     let text: String
     let width: CGFloat
     let style: AnyShapeStyle
-
+    
     var body: some View {
         ZStack{
             ZStack{
