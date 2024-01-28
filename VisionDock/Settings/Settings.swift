@@ -36,14 +36,14 @@ struct Settings: View {
                 }
                 .tag(SettingsNavigation.manageDock)
                 NavigationLink(destination: SettingsManageShortcuts()) {
-                    Label("Manage Shortcuts", systemImage: "plus")
+                    Label("Manage Shortcuts", systemImage: "square.stack.3d.up.fill")
                 }
                 .tag(SettingsNavigation.manageShortcuts)
                 NavigationLink(destination: SettingsManageApps()) {
-                    Label("Manage Apps", systemImage: "plus")
+                    Label("Manage Apps", systemImage: "circle.hexagongrid.fill")
                 }
                 .tag(SettingsNavigation.manageApps)
-                NavigationLink(destination: SettingsFeatures()) {
+                NavigationLink(destination: SettingsWidgets()) {
                     Label("Widgets", systemImage: "bubbles.and.sparkles.fill")
                 }
                 .tag(SettingsNavigation.MoreFeatures)

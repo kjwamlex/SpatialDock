@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingsFeatures: View {
+struct SettingsWidgets: View {
     
     // Extra Subscription Features:
     // More than 5 shortcuts
@@ -53,7 +53,7 @@ struct SettingsFeatures: View {
 }
 
 #Preview {
-    SettingsFeatures()
+    SettingsWidgets()
 }
 
 struct WidgetToggle: View {
