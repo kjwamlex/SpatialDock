@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "textedit2.png",
+      "filename" : "Maps.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "textedit2 1.png",
+      "filename" : "Maps 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "textedit2 2.png",
+      "filename" : "Maps 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

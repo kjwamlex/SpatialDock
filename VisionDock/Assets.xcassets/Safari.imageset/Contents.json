@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "web2.png",
+      "filename" : "Safari.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "web2 1.png",
+      "filename" : "Safari 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "web2 2.png",
+      "filename" : "Safari 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

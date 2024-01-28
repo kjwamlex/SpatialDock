@@ -43,6 +43,7 @@ struct SettingsManageShortcuts: View {
                                                 .resizable()
                                                 .aspectRatio(contentMode: .fit)
                                                 .frame(width:40, height: 40)
+                                                .cornerRadius(20)
                                         case .failure(error: let error):
                                             Image("NoIcon").resizable()
                                                 .aspectRatio(contentMode: .fit)

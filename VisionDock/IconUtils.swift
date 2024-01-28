@@ -15,7 +15,7 @@ class IconUtils: NSObject {
     //if forceImageRequest is on, the app will send a request to the server even for system apps that are included in the app or cached locally. not on by default because there's really no need for it other than debugging
     func getIcon(name: String, endpoint: URL = URL(string: "http://localhost:3000")!, forceImageRequest: Bool = false) async -> Image {
 //        print("getting icon for \(name)")
-        let systemApps:[String] = ["Safari", "Settings", "Files", "Photos"]
+        let systemApps:[String] = ["Safari", "Settings", "Files", "Photos", "App Store", "iTunes Store", "Home", "Maps", "News", "Shortcuts"]
         if !forceImageRequest && systemApps.contains(name) {
             return Image(name)
         }

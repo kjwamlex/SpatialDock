@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "lookup.png",
+      "filename" : "News.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "lookup 1.png",
+      "filename" : "News 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "lookup 2.png",
+      "filename" : "News 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
