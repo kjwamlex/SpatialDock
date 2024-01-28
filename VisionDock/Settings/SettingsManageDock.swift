@@ -22,9 +22,11 @@ struct SettingsManageDock: View {
     @State private var showSystemApps = false
     @State private var showAvailableShortcuts = false
     @State private var showAvailableApps = false
+    @State private var showAvailableSystemApps = false
     @State private var addAppView = false
     @State private var selectedApps: [DockApp] = []
     @State private var selectedShortcuts: [DockApp] = []
+    @State private var selectedSystemApps: [DockApp] = []
     @State private var itemsInDock: [DockApp] = []
     @State var editMode: EditMode = .active
     let fileManager = FBFileManager.init()
@@ -111,7 +113,12 @@ struct SettingsManageDock: View {
         .sheet(isPresented: $showAvailableShortcuts) {
             SettingsAvailableShortcuts(selectedShortcuts: $selectedShortcuts)
                 .frame(width: 500, height: 500)
-        }.sheet(isPresented: $addAppView, content: {
+        }
+        .sheet(isPresented: $showAvailableSystemApps) {
+            SettingsAvailableSystemApps(selectedShortcuts: $selectedSystemApps)
+                .frame(width: 500, height: 500)
+        }
+        .sheet(isPresented: $addAppView, content: {
             AddNewAppModal()
         }).sheet(isPresented: $editingShortcutView, onDismiss: {
             refreshList()
@@ -134,7 +141,7 @@ struct SettingsManageDock: View {
                             showAvailableShortcuts.toggle()
                         }
                     }, label: {
-                        Text("\(Image(systemName: "curlybraces")) Add Imported Shortcuts") //TODO: maybe find a better icon for this?
+                        Text("\(Image(systemName: "square.stack.3d.up.fill")) Add Imported Shortcuts") //TODO: maybe find a better icon for this?
                     })
                     Button(action: {
                         if StoreController.shared.purchased.isEmpty {
@@ -147,7 +154,21 @@ struct SettingsManageDock: View {
                             showAvailableApps.toggle()
                         }
                     }, label: {
-                        Text("\(Image(systemName: "app.badge")) Add Added Apps") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
+                        Text("\(Image(systemName: "circle.hexagongrid.fill")) Add Added Apps") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
+                    })
+                    
+                    Button(action: {
+                        if StoreController.shared.purchased.isEmpty {
+                            if (AppManager.getAppsFromStore().count - 4) < 4 {
+                                showAvailableSystemApps.toggle()
+                            } else {
+                                openWindow(id: "productsview")
+                            }
+                        } else {
+                            showAvailableSystemApps.toggle()
+                        }
+                    }, label: {
+                        Text("\(Image(systemName: "visionpro.fill")) Add System Apps") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
                     })
                 } label: {
                     Image(systemName: "plus")

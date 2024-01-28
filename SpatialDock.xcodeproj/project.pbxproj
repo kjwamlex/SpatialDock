@@ -20,6 +20,8 @@
 		518C0D462B5EBB710085308C /* SettingsManageShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518C0D452B5EBB710085308C /* SettingsManageShortcuts.swift */; };
 		518C0D482B5EC1F00085308C /* SettingsManageApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518C0D472B5EC1F00085308C /* SettingsManageApps.swift */; };
 		518C0D4A2B6605E00085308C /* SettingsAvailableApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518C0D492B6605E00085308C /* SettingsAvailableApps.swift */; };
+		518C0D4C2B6698740085308C /* SettingsViewSystemApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518C0D4B2B6698740085308C /* SettingsViewSystemApps.swift */; };
+		518C0D4E2B669A730085308C /* SettingsAvailableSystemApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518C0D4D2B669A730085308C /* SettingsAvailableSystemApps.swift */; };
 		519D47EC2A50897C00928EF8 /* SettingsAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47EB2A50897C00928EF8 /* SettingsAbout.swift */; };
 		519D47EF2A509B7000928EF8 /* SettingsWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47EE2A509B7000928EF8 /* SettingsWidgets.swift */; };
 		519D47F32A509B9500928EF8 /* SettingsManageDock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519D47F22A509B9500928EF8 /* SettingsManageDock.swift */; };
@@ -75,6 +77,8 @@
 		518C0D452B5EBB710085308C /* SettingsManageShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManageShortcuts.swift; sourceTree = "<group>"; };
 		518C0D472B5EC1F00085308C /* SettingsManageApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManageApps.swift; sourceTree = "<group>"; };
 		518C0D492B6605E00085308C /* SettingsAvailableApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAvailableApps.swift; sourceTree = "<group>"; };
+		518C0D4B2B6698740085308C /* SettingsViewSystemApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewSystemApps.swift; sourceTree = "<group>"; };
+		518C0D4D2B669A730085308C /* SettingsAvailableSystemApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAvailableSystemApps.swift; sourceTree = "<group>"; };
 		519D47EB2A50897C00928EF8 /* SettingsAbout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAbout.swift; sourceTree = "<group>"; };
 		519D47EE2A509B7000928EF8 /* SettingsWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWidgets.swift; sourceTree = "<group>"; };
 		519D47F22A509B9500928EF8 /* SettingsManageDock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManageDock.swift; sourceTree = "<group>"; };
@@ -201,9 +205,11 @@
 				519D47F22A509B9500928EF8 /* SettingsManageDock.swift */,
 				518C0D452B5EBB710085308C /* SettingsManageShortcuts.swift */,
 				518C0D472B5EC1F00085308C /* SettingsManageApps.swift */,
+				518C0D4B2B6698740085308C /* SettingsViewSystemApps.swift */,
 				519D47EE2A509B7000928EF8 /* SettingsWidgets.swift */,
 				518747872A77821300109E11 /* SettingsAvailableShortcuts.swift */,
 				518C0D492B6605E00085308C /* SettingsAvailableApps.swift */,
+				518C0D4D2B669A730085308C /* SettingsAvailableSystemApps.swift */,
 				519D47F42A509B9F00928EF8 /* SettingsMessages.swift */,
 				51D5FAA42A70E36600006225 /* SettingsSubscription.swift */,
 				519D47F62A509BC400928EF8 /* SettingsReset.swift */,
@@ -376,6 +382,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				518C0D4C2B6698740085308C /* SettingsViewSystemApps.swift in Sources */,
+				518C0D4E2B669A730085308C /* SettingsAvailableSystemApps.swift in Sources */,
 				519D47EC2A50897C00928EF8 /* SettingsAbout.swift in Sources */,
 				518C0D462B5EBB710085308C /* SettingsManageShortcuts.swift in Sources */,
 				E9775BCE2B5C1EFF002B333A /* StoreController.swift in Sources */,

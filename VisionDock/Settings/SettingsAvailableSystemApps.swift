@@ -1,13 +1,13 @@
 //
-//  SettingsAvailableShortcuts.swift
+//  SettingsAvailableSystemApps.swift
 //  SpatialDock
 //
-//  Created by Joonwoo KIM on 2024-01-27.
+//  Created by Joonwoo KIM on 2024-01-28.
 //
 
 import SwiftUI
 
-struct SettingsAvailableApps: View {
+struct SettingsAvailableSystemApps: View {
     
     @Environment(\.dismiss) var dismiss
     @Binding var selectedShortcuts:[DockApp]
@@ -20,8 +20,9 @@ struct SettingsAvailableApps: View {
         NavigationView {
             VStack {
                 Spacer()
+                Text("\(shortcutsSelection.count) selections")
                 List(listOfApps, id: \.self, selection: $shortcutsSelection) { item in
-                    if item.type == .app {
+                    if item.type == .system {
                         HStack {
                             AsyncView {
                                 await IconUtils().getIcon(name: item.name)
@@ -55,7 +56,7 @@ struct SettingsAvailableApps: View {
                     
                 }
             }
-            .navigationTitle("Add Apps")
+            .navigationTitle("Add System Apps")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -86,3 +87,4 @@ struct SettingsAvailableApps: View {
         }
     }
 }
+

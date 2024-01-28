@@ -12,6 +12,7 @@ enum SettingsNavigation {
     case manageDock
     case manageShortcuts
     case manageApps
+    case viewSystemApps
     case MoreFeatures
     case subscription
     case messages
@@ -43,6 +44,10 @@ struct Settings: View {
                     Label("Manage Apps", systemImage: "circle.hexagongrid.fill")
                 }
                 .tag(SettingsNavigation.manageApps)
+                NavigationLink(destination: SettingsViewSystemApps()) {
+                    Label("View System Apps", systemImage: "visionpro.fill")
+                }
+                .tag(SettingsNavigation.viewSystemApps)
                 NavigationLink(destination: SettingsWidgets()) {
                     Label("Widgets", systemImage: "bubbles.and.sparkles.fill")
                 }

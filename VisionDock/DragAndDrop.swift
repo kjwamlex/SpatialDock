@@ -27,18 +27,19 @@ enum ShortcutType: Int, Codable {
 
 class Model: ObservableObject {
     @Published var data: [DockApp]
-    
-    // For each of the name, add prefix
-    // Shortcuts Prefix:  SHORTCUTS::
-    // Contact Prefix:    CONTACT::
-    // System App Prefix: SYSTEM::
-    
+
     // There should be a better way of organizing this...
     
     var systemApps: [DockApp] = [.init(id: "x-web-search://", name: "Safari", type: .system),
                                  .init(id: UIApplication.openSettingsURLString, name: "Settings", type: .system),
                                  .init(id: "shareddocuments://", name: "Files", type: .system),
-                                 .init(id: "photos-navigation://", name: "Photos", type: .system)]
+                                 .init(id: "photos-navigation://", name: "Photos", type: .system),
+                                 .init(id: "appstore-ui://", name: "App Store", type: .system),
+                                 .init(id: "itms-ui://", name: "iTunes Store", type: .system),
+                                 .init(id: "homeutil://", name: "Home", type: .system),
+                                 .init(id: "map://", name: "Maps", type: .system),
+                                 .init(id: "applenews://", name: "News", type: .system),
+                                 .init(id: "shortcuts://", name: "Shortcuts", type: .system)]
     
     let fileManager = FBFileManager.init()
 
@@ -56,7 +57,11 @@ class Model: ObservableObject {
         print(dockSavedPath)
         if !fileManager.fileManager.fileExists(atPath: dockSavedPath.relativePath) {
             print("file does not exist")
-            data = systemApps
+            //data = systemApps
+            
+            for apps in 0...3 {
+                data.append(systemApps[apps])
+            }
             fileManager.createBasicDirectory()
             fileManager.createFile(name: "SpatialDockSaved.json", atPath: dockSavedPath)
             fileManager.createFile(name: "SpatialDockImportedShortcuts.json", atPath: fileManager.mainPath)
@@ -72,7 +77,7 @@ class Model: ObservableObject {
                 try encodedData?.write(to: dockSavedPath)
                 
                 let emptyArray:[DockApp] = []
-                let encodedDataForImports = try? JSONEncoder().encode(emptyArray)
+                let encodedDataForImports = try? JSONEncoder().encode(systemApps)
                 try encodedDataForImports?.write(to: fileManager.shortcutStorage)
                 
             } catch {
