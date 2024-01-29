@@ -133,7 +133,12 @@ struct SettingsManageDock: View {
                 Menu {
                     Button(action: {
                         if StoreController.shared.purchased.isEmpty {
-                            if (AppManager.getAppsFromStore().count - 4) < 4 {
+                            var appsCount = 0
+                            for app in AppManager.getAppsFromStore() where app.type == .app || app.type == .shortcut {
+                                appsCount += 1
+                            }
+                            
+                            if appsCount < 4 {
                                 showAvailableShortcuts.toggle()
                             } else {
                                 openWindow(id: "productsview")
@@ -146,7 +151,12 @@ struct SettingsManageDock: View {
                     })
                     Button(action: {
                         if StoreController.shared.purchased.isEmpty {
-                            if (AppManager.getAppsFromStore().count - 4) < 4 {
+                            var appsCount = 0
+                            for app in AppManager.getAppsFromStore() where app.type == .app || app.type == .shortcut {
+                                appsCount += 1
+                            }
+                            
+                            if appsCount < 4 {
                                 showAvailableApps.toggle()
                             } else {
                                 openWindow(id: "productsview")
@@ -160,7 +170,12 @@ struct SettingsManageDock: View {
                     
                     Button(action: {
                         if StoreController.shared.purchased.isEmpty {
-                            if (AppManager.getAppsFromStore().count - 4) < 4 {
+                            var appsCount = 0
+                            for app in AppManager.getAppsFromStore() where app.type == .app || app.type == .shortcut {
+                                appsCount += 1
+                            }
+                            
+                            if appsCount < 4 {
                                 showAvailableSystemApps.toggle()
                             } else {
                                 openWindow(id: "productsview")

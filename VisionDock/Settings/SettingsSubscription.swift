@@ -11,6 +11,7 @@ struct SettingsSubscription: View {
     @Environment(\.openWindow) var openWindow
     @StateObject var storeController = StoreController.shared
     @State var showingProUpsell = false
+    @State var restoring = false
     var body: some View {
         List {
             if !storeController.purchased.isEmpty {
@@ -39,6 +40,26 @@ struct SettingsSubscription: View {
                             Image(systemName: "wand.and.stars")
                         }
                     })
+                    Button(action: {
+                        withAnimation {
+                            restoring = true
+                        }
+                        StoreController.shared.restore {
+                            withAnimation {
+                                restoring = false
+                            }
+                        }
+                    }, label: {
+                        HStack {
+                            Text("Restore Purchase")
+                            Spacer()
+                            if restoring {
+                                ProgressView()
+                            } else {
+                                Image(systemName: "arrow.clockwise")
+                            }
+                        }
+                    }).disabled(restoring)
                 }
             }
         }.navigationTitle("Subscription")
