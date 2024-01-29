@@ -17,6 +17,7 @@ class AppManager {
             print(decodedData)
             let encodedData = try? JSONEncoder().encode(decodedData)
             try encodedData?.write(to: store)
+            NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
         } catch {
             print("error adding dockapp to store \(store): \(error)")
         }
@@ -31,6 +32,7 @@ class AppManager {
             print(decodedData)
             let encodedData = try? JSONEncoder().encode(decodedData)
             try encodedData?.write(to: store)
+            NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
         } catch {
             print(error)
         }
@@ -40,6 +42,7 @@ class AppManager {
         do {
             let savedData = try Data(contentsOf: dockSavedPath)
             let decodedData = try JSONDecoder().decode([DockApp].self, from: savedData)
+            
             return decodedData
         } catch {
             print(error)

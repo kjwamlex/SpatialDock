@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Settings 1.png",
+      "filename" : "settings 3.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Settings 2.png",
+      "filename" : "settings 4.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Settings.png",
+      "filename" : "settings 5.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
