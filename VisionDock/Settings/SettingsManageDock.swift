@@ -134,7 +134,7 @@ struct SettingsManageDock: View {
                     Button(action: {
                         if StoreController.shared.purchased.isEmpty {
                             var appsCount = 0
-                            for app in AppManager.getAppsFromStore() where app.type == .app || app.type == .shortcut {
+                            for app in AppManager.getAppsFromStore() where app.type == .app || app.type == .shortcut || app.type == .system {
                                 appsCount += 1
                             }
                             
@@ -152,7 +152,7 @@ struct SettingsManageDock: View {
                     Button(action: {
                         if StoreController.shared.purchased.isEmpty {
                             var appsCount = 0
-                            for app in AppManager.getAppsFromStore() where app.type == .app || app.type == .shortcut {
+                            for app in AppManager.getAppsFromStore() where app.type == .app || app.type == .shortcut || app.type == .system {
                                 appsCount += 1
                             }
                             
@@ -171,7 +171,7 @@ struct SettingsManageDock: View {
                     Button(action: {
                         if StoreController.shared.purchased.isEmpty {
                             var appsCount = 0
-                            for app in AppManager.getAppsFromStore() where app.type == .app || app.type == .shortcut {
+                            for app in AppManager.getAppsFromStore() where app.type == .app || app.type == .shortcut || app.type == .system {
                                 appsCount += 1
                             }
                             

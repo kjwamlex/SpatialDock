@@ -45,7 +45,7 @@ struct ProductsView: View {
                 Link("Terms of Service", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
                 Text("•")
                 //TODO: change priv policy URL
-                Link("Privacy Policy", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                Link("Privacy Policy", destination: URL(string: "https://github.com/kjwamlex/SpatialDockPrivacyPolicy/blob/main/README.md")!)
             }.font(.caption).foregroundStyle(.secondary)
             Divider().padding()
             HStack {

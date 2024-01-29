@@ -12,7 +12,7 @@ struct VDProUnlimitedApps: View {
         VStack {
             Spacer()
             Text("Unlimited Apps").font(.title).bold()
-            Text("Use unlimited apps in the dock.")
+            Text("Use unlimited apps in the dock and get more widgets in the future updates.")
             Divider()
             
             ScrollView(.horizontal) {
