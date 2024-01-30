@@ -8,6 +8,8 @@
   ],
   "settings" : {
     "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
     "_storeKitErrors" : [
       {
         "current" : null,
@@ -62,7 +64,7 @@
       "localizations" : [
 
       ],
-      "name" : "visiondockpro",
+      "name" : "SpatialDock Pro Subscription",
       "subscriptions" : [
         {
           "adHocOffers" : [
