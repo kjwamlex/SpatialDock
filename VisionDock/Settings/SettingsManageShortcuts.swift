@@ -15,7 +15,7 @@ struct SettingsManageShortcuts: View {
     
     var body: some View {
         VStack {
-            Text("If you accidentally removed Shortcut to import shortcuts to SpatialDock, please click on the button below to add it back.")
+            Text("Please click on the button below to add a shortcut to import shortcuts to SpatialDock.")
                 .font(.title)
                 .multilineTextAlignment(.center)
                 .frame(width: 500)
