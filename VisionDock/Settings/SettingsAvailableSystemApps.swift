@@ -14,13 +14,13 @@ struct SettingsAvailableSystemApps: View {
     @State var listOfApps:[DockApp] = []
     @State private var shortcutsSelection = Set<DockApp>()
     @State private var selection: String?
+    @State private var showDuplication = false
     let fileManager = FBFileManager.init()
     
     var body: some View {
         NavigationView {
             VStack {
                 Spacer()
-                Text("\(shortcutsSelection.count) selections")
                 List(listOfApps, id: \.self, selection: $shortcutsSelection) { item in
                     if item.type == .system {
                         HStack {
@@ -35,10 +35,12 @@ struct SettingsAvailableSystemApps: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width:40, height: 40)
+                                        .cornerRadius(20)
                                 case .failure(error: let error):
                                     Image("NoIcon").resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width:40, height: 40)
+                                        .cornerRadius(20)
                                 }
                             }
                             Text(item.name)
@@ -58,32 +60,69 @@ struct SettingsAvailableSystemApps: View {
             }
             .navigationTitle("Add System Apps")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Text("Cancel")
+                    })
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
+                        var success = true
+                        
                         do {
                             let existingShortcutData = try Data(contentsOf: fileManager.userDockConfigJSON)
                             var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
                             
                             for addApps in shortcutsSelection {
-                                decodedData.insert(addApps, at: 0)
+                                for existingApps in decodedData {
+                                    if addApps == existingApps {
+                                        success = false
+                                        break
+                                    }
+                                }
+                                if !success {
+                                    break
+                                }
                             }
                             
-                            let encodedData = try? JSONEncoder().encode(decodedData)
-                            try encodedData?.write(to: fileManager.userDockConfigJSON)
                         } catch {
                             print(error)
                         }
+                        if success {
+                            do {
+                                let existingShortcutData = try Data(contentsOf: fileManager.userDockConfigJSON)
+                                var decodedData = try JSONDecoder().decode([DockApp].self, from: existingShortcutData)
+                                
+                                for addApps in shortcutsSelection {
+                                    decodedData.insert(addApps, at: 0)
+                                }
+                                
+                                let encodedData = try? JSONEncoder().encode(decodedData)
+                                try encodedData?.write(to: fileManager.userDockConfigJSON)
+                            } catch {
+                                print(error)
+                            }
+                            
+                            NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
+                            dismiss()
+                        } else {
+                            showDuplication = true
+                        }
                         
-                        NotificationCenter.default.post(name: NSNotification.Name("reloadDockItems"), object: nil, userInfo: nil)
-                        
-                        print(shortcutsSelection)
-                        dismiss()
                     } label: {
-                        Image(systemName: "xmark")
+                        Text("Add Selected App")
                     }
                 }
                 
             }
+        }.alert(isPresented: $showDuplication) {
+            Alert(
+                title: Text("You already added this app."),
+                message: Text("Please add a different app."),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
 }

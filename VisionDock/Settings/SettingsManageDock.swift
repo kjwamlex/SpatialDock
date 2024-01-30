@@ -109,15 +109,15 @@ struct SettingsManageDock: View {
         }
         .sheet(isPresented: $showAvailableApps) {
             SettingsAvailableApps(selectedShortcuts: $selectedApps)
-                .frame(width: 500, height: 500)
+                .frame(width: 750, height: 500)
         }
         .sheet(isPresented: $showAvailableShortcuts) {
             SettingsAvailableShortcuts(selectedShortcuts: $selectedShortcuts)
-                .frame(width: 500, height: 500)
+                .frame(width: 750, height: 500)
         }
         .sheet(isPresented: $showAvailableSystemApps) {
             SettingsAvailableSystemApps(selectedShortcuts: $selectedSystemApps)
-                .frame(width: 500, height: 500)
+                .frame(width: 750, height: 500)
         }
         .sheet(isPresented: $addAppView, content: {
             AddNewAppModal()
