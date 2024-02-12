@@ -57,10 +57,6 @@ struct Settings: View {
 //                    Label("Messages", systemImage: "bubble.left.fill")
 //                }
 //                .tag(SettingsNavigation.messages)
-                NavigationLink(destination: SettingsSubscription()) {
-                    Label("Subscription", systemImage: "rays")
-                }
-                .tag(SettingsNavigation.subscription)
 //                NavigationLink(destination: SettingsReset()) {
 //                    Label("Reset", systemImage: "arrow.counterclockwise")
 //                }

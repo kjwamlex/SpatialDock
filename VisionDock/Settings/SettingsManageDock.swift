@@ -132,57 +132,18 @@ struct SettingsManageDock: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     Button(action: {
-                        if StoreController.shared.purchased.isEmpty {
-                            var appsCount = 0
-                            for app in AppManager.getAppsFromStore() where app.type == .app || app.type == .shortcut || app.type == .system {
-                                appsCount += 1
-                            }
-                            
-                            if appsCount < 4 {
                                 showAvailableShortcuts.toggle()
-                            } else {
-                                openWindow(id: "productsview")
-                            }
-                        } else {
-                            showAvailableShortcuts.toggle()
-                        }
                     }, label: {
                         Text("\(Image(systemName: "square.stack.3d.up.fill")) Add Imported Shortcuts") //TODO: maybe find a better icon for this?
                     })
                     Button(action: {
-                        if StoreController.shared.purchased.isEmpty {
-                            var appsCount = 0
-                            for app in AppManager.getAppsFromStore() where app.type == .app || app.type == .shortcut || app.type == .system {
-                                appsCount += 1
-                            }
-                            
-                            if appsCount < 4 {
-                                showAvailableApps.toggle()
-                            } else {
-                                openWindow(id: "productsview")
-                            }
-                        } else {
                             showAvailableApps.toggle()
-                        }
                     }, label: {
                         Text("\(Image(systemName: "circle.hexagongrid.fill")) Add Added Apps") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
                     })
                     
                     Button(action: {
-                        if StoreController.shared.purchased.isEmpty {
-                            var appsCount = 0
-                            for app in AppManager.getAppsFromStore() where app.type == .app || app.type == .shortcut || app.type == .system {
-                                appsCount += 1
-                            }
-                            
-                            if appsCount < 4 {
-                                showAvailableSystemApps.toggle()
-                            } else {
-                                openWindow(id: "productsview")
-                            }
-                        } else {
                             showAvailableSystemApps.toggle()
-                        }
                     }, label: {
                         Text("\(Image(systemName: "visionpro.fill")) Add System Apps") //using app w/ notification badge because the regular app symbol is literally just a rounded rectangle
                     })

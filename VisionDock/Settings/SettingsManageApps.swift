@@ -81,15 +81,7 @@ struct SettingsManageApps: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        if StoreController.shared.purchased.isEmpty {
-                            if (AppManager.getAppsFromStore().count - 4) < 4 {
                                 addAppView.toggle()
-                            } else {
-                                openWindow(id: "productsview")
-                            }
-                        } else {
-                            addAppView.toggle()
-                        }
                     }, label: {
                         Image(systemName: "plus")
                     })
